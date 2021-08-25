@@ -29,7 +29,7 @@ namespace GloboTicket.TicketManagement.Application.Features.Categories.Commands
             var validationResult = await validator.ValidateAsync(request);
             if (validationResult.Errors.Count > 0)
             {
-                createCategoryCommandresponse.Sucess = false;
+                createCategoryCommandresponse.Success = false;
                 createCategoryCommandresponse.ValidationErrors = new List<string>();
                 foreach (var error in validationResult.Errors)
                 {
@@ -37,7 +37,7 @@ namespace GloboTicket.TicketManagement.Application.Features.Categories.Commands
 
                 }
             }
-            if (createCategoryCommandresponse.Sucess)
+            if (createCategoryCommandresponse.Success)
             {
                 var category = new Category() { Name = request.Name };
                 category = await _categoryRepository.AddAsync(category);
