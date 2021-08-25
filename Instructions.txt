@@ -1,0 +1,9 @@
+The Infastrcuture layer should only have input/output components
+While Core has the business logic (which includes validations and queries and commands) it does not have
+the actual implementation of the persistence of the data or where that is coming from.
+That is where the infrastructure layer comes into play.
+The infrastructure layer dictates where the data is being stored or retrieved from.
+That can be SQL server in which case a project for SQL DB would be created within the 
+infrastructure layer. Or it can be NoSQL with MongoDB, in which case a MongoDB project
+would be created. The same goes for files and other data stores.
+In addition, other services such as Logging support might rest as well within the infrastructure layer.
