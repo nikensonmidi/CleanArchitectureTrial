@@ -27,7 +27,9 @@ namespace GloboTicket.TicketManagement.Application.Features.Events.Commands.Crea
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .GreaterThan(0);
             //custom validation
-
+            RuleFor(e => e)
+                .MustAsync(EventNameAndDateUnique)
+                .WithMessage("An event with the same name already exists");
         }
 
 
