@@ -28,7 +28,7 @@ namespace GloboTicket.TicketManagement.Persistence
 
         }
     }
-    class CategoryConfiguration : IEntityTypeConfiguration<Category>
+    public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
