@@ -6,4 +6,4 @@ The infrastructure layer dictates where the data is being stored or retrieved fr
 That can be SQL server in which case a project for SQL DB would be created within the 
 infrastructure layer. Or it can be NoSQL with MongoDB, in which case a MongoDB project
 would be created. The same goes for files and other data stores.
-In addition, other services such as Logging support might rest as well within the infrastructure layer.
+In addition, other services such as Logging support might rest here as well within the infrastructure layer.
