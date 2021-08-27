@@ -90,7 +90,7 @@ namespace GloboTicket.TicketManagement.Persistence
         public OrderRepository(GloboTicketDBcontext dbContext) : base(dbContext)
         {
         }
-
+        //Will be using Odata for paging
         public async Task<List<Order>> GetPagedOrdersForMonth(DateTime date, int page, int size)
         {
             return await _dbcontext.Orders.Where(x => x.OrderPlaced.Month == date.Month && x.OrderPlaced.Year == date.Year)
