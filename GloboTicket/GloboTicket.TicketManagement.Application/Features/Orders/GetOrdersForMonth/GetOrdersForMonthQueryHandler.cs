@@ -9,10 +9,10 @@ namespace GloboTicket.TicketManagement.Application.Features.Orders.GetOrdersForM
 {
     public class GetOrdersForMonthQueryHandler : IRequestHandler<GetOrdersForMonthQuery, PagedOrdersForMonthVm>
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IAsyncOrderRepository _orderRepository;
         private readonly IMapper _mapper;
 
-        public GetOrdersForMonthQueryHandler(IOrderRepository orderRepository, IMapper mapper)
+        public GetOrdersForMonthQueryHandler(IAsyncOrderRepository orderRepository, IMapper mapper)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;

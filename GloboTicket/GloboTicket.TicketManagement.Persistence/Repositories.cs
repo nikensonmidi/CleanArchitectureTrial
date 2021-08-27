@@ -86,7 +86,7 @@ namespace GloboTicket.TicketManagement.Persistence
         }
     }
     [GloboPersistenceService]
-    public class OrderRepository : BaseRepository<Order>, IOrderRepository
+    public class OrderRepository : BaseRepository<Order>, IAsyncOrderRepository
     {
         public OrderRepository(GloboTicketDBcontext dbContext) : base(dbContext)
         {
