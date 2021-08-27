@@ -11,6 +11,7 @@ namespace GloboTicket.TicketManagement.Persistence
 {/**
   * These list of repositories applied the Application Core contracts
   * */
+    [GloboPersistenceService]
    public  class BaseRepository<T>:IAsyncRepository<T> where T : class
     {
         protected readonly GloboTicketDBcontext _dbcontext;
@@ -52,7 +53,7 @@ namespace GloboTicket.TicketManagement.Persistence
     }
 
 
-
+    [GloboPersistenceService]
     public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
     {
         
@@ -71,7 +72,7 @@ namespace GloboTicket.TicketManagement.Persistence
         }
     }
 
-
+    [GloboPersistenceService]
     public class EventRepository : BaseRepository<Event>, IEventRepository
     {
         public EventRepository(GloboTicketDBcontext dbContext) : base(dbContext)
@@ -84,7 +85,7 @@ namespace GloboTicket.TicketManagement.Persistence
             return Task.FromResult(matches);
         }
     }
-
+    [GloboPersistenceService]
     public class OrderRepository : BaseRepository<Order>, IOrderRepository
     {
         public OrderRepository(GloboTicketDBcontext dbContext) : base(dbContext)
