@@ -19,4 +19,13 @@ namespace GloboTicket.TicketManagement.Application.Contracts.Persistence
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
     }
+
+   public  interface IRepository<T> where T: class
+    {
+        T GetByIdAsync(Guid id);
+        IEnumerable<T> ListAllAsync();
+        T AddAsync(T entity);
+        void UpdateAsync(T entity);
+        void DeleteAsync(T entity);
+    }
 }
