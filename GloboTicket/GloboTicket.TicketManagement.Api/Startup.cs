@@ -30,7 +30,7 @@ namespace GloboTicket.TicketManagement.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplicationServicestype();
-            services.AddPersistenceServices();
+            services.AddPersistenceServices(Configuration);
             services.AddControllers();
            
 

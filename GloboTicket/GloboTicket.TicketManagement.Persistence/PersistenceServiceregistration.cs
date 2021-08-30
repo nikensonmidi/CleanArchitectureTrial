@@ -1,5 +1,6 @@
 ﻿using GloboTicket.TicketManagement.Application.Contracts.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,9 @@ namespace GloboTicket.TicketManagement.Persistence
     public static class PersistenceServiceregistration
     {
 
-        public static IServiceCollection AddPersistenceServices(this IServiceCollection services)
+        public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<GloboTicketDBcontext>(options => options.UseSqlServer("GloboTicketTicketManagementConnectionString"));
+            services.AddDbContext<GloboTicketDBcontext>(options => options.UseSqlServer(configuration.GetConnectionString("GloboTicketTicketManagementConnectionString")));
             //var attributeType = typeof(GloboPersistenceService);
 
             //var servicesTobeRegistered = attributeType.Assembly.DefinedTypes.Where(t => t.GetTypeInfo().GetCustomAttributes<GloboPersistenceService>() != null);
