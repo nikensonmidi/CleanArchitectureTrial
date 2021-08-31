@@ -13,7 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GloboTicket.TicketManagement.Persistence;
 using GloboTicket.TicketManagement.Application;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace GloboTicket.TicketManagement.Api
 {
@@ -31,6 +31,7 @@ namespace GloboTicket.TicketManagement.Api
         {
             services.AddApplicationServicestype();
             services.AddPersistenceServices(Configuration);
+
             services.AddControllers();
            
 
