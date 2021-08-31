@@ -7,13 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using GloboTicket.TicketManagement.Persistence;
 using GloboTicket.TicketManagement.Application;
-using Microsoft.EntityFrameworkCore;
+
+
 
 namespace GloboTicket.TicketManagement.Api
 {
@@ -29,7 +27,8 @@ namespace GloboTicket.TicketManagement.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplicationServicestype();
+
+            services.AddApplicationServices();
             services.AddPersistenceServices(Configuration);
 
             services.AddControllers();

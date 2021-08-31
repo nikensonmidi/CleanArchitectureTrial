@@ -14,8 +14,8 @@ namespace GloboTicket.TicketManagement.Application.Features.Categories.Queries.G
     public class GetCategoriesListQueryHandler : IRequestHandler<GetCategoriesListQuery, List<CategoryListVm>>
     {
         private readonly IAsyncRepository<Category> _categoryRepository;
-        private readonly Mapper _mapper;
-        public GetCategoriesListQueryHandler(Mapper mapper, IAsyncRepository<Category> categoryRepository)
+        private readonly IMapper _mapper;
+        public GetCategoriesListQueryHandler(IMapper mapper, IAsyncRepository<Category> categoryRepository)
         {
             _mapper = mapper;
             _categoryRepository = categoryRepository;

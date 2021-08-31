@@ -16,8 +16,8 @@ namespace GloboTicket.TicketManagement.Application.Features.Events.Queries.GetEv
     {
         private readonly IAsyncRepository<Event> _eventRepository;
         private readonly IAsyncRepository<Category> _categoryRepository;
-        private readonly Mapper _mapper;
-        public GetEventDetailQueryHandler(Mapper mapper,IAsyncRepository<Event> eventRepository, IAsyncRepository<Category> categoryRepository)
+        private readonly IMapper _mapper;
+        public GetEventDetailQueryHandler(IMapper mapper,IAsyncRepository<Event> eventRepository, IAsyncRepository<Category> categoryRepository)
         {
             _mapper = mapper;
             _eventRepository =eventRepository;

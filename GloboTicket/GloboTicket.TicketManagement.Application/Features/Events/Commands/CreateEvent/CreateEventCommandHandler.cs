@@ -15,9 +15,9 @@ namespace GloboTicket.TicketManagement.Application.Features.Events.Commands.Crea
     public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, Guid>
     {
         private readonly IEventRepository _eventRepository;
-        private readonly Mapper _mapper;
+        private readonly IMapper _mapper;
 
-        public CreateEventCommandHandler(IEventRepository eventRepository, Mapper mapper)
+        public CreateEventCommandHandler(IEventRepository eventRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
             _mapper = mapper;
