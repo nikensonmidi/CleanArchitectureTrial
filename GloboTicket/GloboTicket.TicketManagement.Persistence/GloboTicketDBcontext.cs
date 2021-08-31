@@ -1,6 +1,7 @@
 ﻿using GloboTicket.TicketManagement.Domain.Common;
 using GloboTicket.TicketManagement.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,16 @@ using System.Threading.Tasks;
 
 namespace GloboTicket.TicketManagement.Persistence
 {
+    public class AppDbContextFactory : IDesignTimeDbContextFactory<GloboTicketDBcontext>
+    {
+        public GloboTicketDBcontext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<GloboTicketDBcontext>();
+            optionsBuilder.UseSqlServer("sql connection here");
+
+            return new GloboTicketDBcontext(optionsBuilder.Options);
+        }
+    }
     public class GloboTicketDBcontext:DbContext
     {
         public GloboTicketDBcontext(DbContextOptions<GloboTicketDBcontext> options):base(options)
@@ -22,7 +33,12 @@ namespace GloboTicket.TicketManagement.Persistence
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
 
-       
+
+        
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder); 
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(GloboTicketDBcontext).Assembly);
