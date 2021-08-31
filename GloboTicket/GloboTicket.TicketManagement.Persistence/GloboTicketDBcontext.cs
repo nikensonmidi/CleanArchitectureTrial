@@ -12,16 +12,17 @@ using System.Threading.Tasks;
 
 namespace GloboTicket.TicketManagement.Persistence
 {
-    public class AppDbContextFactory : IDesignTimeDbContextFactory<GloboTicketDBcontext>
-    {
-        public GloboTicketDBcontext CreateDbContext(string[] args)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<GloboTicketDBcontext>();
-            optionsBuilder.UseSqlServer("sql connection here");
+    //Was used to initialize the database
+    //public class AppDbContextFactory : IDesignTimeDbContextFactory<GloboTicketDBcontext>
+    //{
+    //    public GloboTicketDBcontext CreateDbContext(string[] args)
+    //    {
+    //        var optionsBuilder = new DbContextOptionsBuilder<GloboTicketDBcontext>();
+    //        optionsBuilder.UseSqlServer("");
 
-            return new GloboTicketDBcontext(optionsBuilder.Options);
-        }
-    }
+    //        return new GloboTicketDBcontext(optionsBuilder.Options);
+    //    }
+    //}
     public class GloboTicketDBcontext:DbContext
     {
         public GloboTicketDBcontext(DbContextOptions<GloboTicketDBcontext> options):base(options)
@@ -35,10 +36,10 @@ namespace GloboTicket.TicketManagement.Persistence
 
 
         
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder); 
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    base.OnConfiguring(optionsBuilder); 
+        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(GloboTicketDBcontext).Assembly);
