@@ -17,7 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DodoBed.Manufacturing.Api",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DodoBed.Manufacturing.UI", "DodoBed.Manufacturing.UI", "{6830FD4D-8D7F-4C11-91EE-E356E78AED43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DodoBed.Manufacturing.Domain", "DodoBed.Manufacturing.Domain\DodoBed.Manufacturing.Domain.csproj", "{D20E9485-D5AD-43EF-BF98-B82E94B29380}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DodoBed.Manufacturing.Domain", "DodoBed.Manufacturing.Domain\DodoBed.Manufacturing.Domain.csproj", "{D20E9485-D5AD-43EF-BF98-B82E94B29380}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DodoBed.Manufacturing.Application", "DodoBed.Manufacturing.Application\DodoBed.Manufacturing.Application.csproj", "{03B34733-7170-4CE7-A2C2-72D290203467}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DodoBed.Manufacturing.SqlPersistence", "DodoBed.Manufacturing.SqlPersistence\DodoBed.Manufacturing.SqlPersistence.csproj", "{1D0CEF04-504B-4CAC-80BF-D0BBFCEDEFBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +33,14 @@ Global
 		{D20E9485-D5AD-43EF-BF98-B82E94B29380}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D20E9485-D5AD-43EF-BF98-B82E94B29380}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D20E9485-D5AD-43EF-BF98-B82E94B29380}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03B34733-7170-4CE7-A2C2-72D290203467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03B34733-7170-4CE7-A2C2-72D290203467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03B34733-7170-4CE7-A2C2-72D290203467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03B34733-7170-4CE7-A2C2-72D290203467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D0CEF04-504B-4CAC-80BF-D0BBFCEDEFBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D0CEF04-504B-4CAC-80BF-D0BBFCEDEFBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D0CEF04-504B-4CAC-80BF-D0BBFCEDEFBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D0CEF04-504B-4CAC-80BF-D0BBFCEDEFBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,6 +52,8 @@ Global
 		{CFBBBF1F-39FF-4C2F-9366-8773101AFEC7} = {0E9A66C7-F8E6-4802-8EB4-0353B50C8866}
 		{6830FD4D-8D7F-4C11-91EE-E356E78AED43} = {0E9A66C7-F8E6-4802-8EB4-0353B50C8866}
 		{D20E9485-D5AD-43EF-BF98-B82E94B29380} = {F045EAE5-F622-4F57-9D73-1038666FB7D7}
+		{03B34733-7170-4CE7-A2C2-72D290203467} = {8BD851AB-CEEB-4178-9671-09A7A28D4F27}
+		{1D0CEF04-504B-4CAC-80BF-D0BBFCEDEFBF} = {8648C740-5BE9-455A-B5F9-0852BDED9494}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0D4229F-CBB4-4E1A-92A5-0BD36E1A59B3}
