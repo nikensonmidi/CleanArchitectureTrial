@@ -34,6 +34,7 @@ namespace DodoBed.Manufacturing.SqlPersistence
                  .HasDefaultValue(DateTime.Now);
             builder.Property(e => e.LastModifiedDate)
                   .HasDefaultValue(DateTime.Now);
+            builder.HasKey(e => e.ItemId);
                
         }
     }
@@ -47,6 +48,7 @@ namespace DodoBed.Manufacturing.SqlPersistence
                .HasDefaultValue(DateTime.Now);
             builder.Property(e => e.LastModifiedDate)
                   .HasDefaultValue(DateTime.Now);
+            builder.HasKey(e => e.ItemId);
         }
     }
 

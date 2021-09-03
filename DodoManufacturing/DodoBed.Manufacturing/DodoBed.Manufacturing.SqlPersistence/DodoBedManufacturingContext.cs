@@ -1,5 +1,6 @@
 ﻿using DodoBed.Manufacturing.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +16,16 @@ namespace DodoBed.Manufacturing.SqlPersistence
 
         }
         //Was used to initialize the database
-        //public class AppDbContextFactory : IDesignTimeDbContextFactory<GloboTicketDBcontext>
-        //{
-        //    public GloboTicketDBcontext CreateDbContext(string[] args)
-        //    {
-        //        var optionsBuilder = new DbContextOptionsBuilder<GloboTicketDBcontext>();
-        //        optionsBuilder.UseSqlServer("");
-
-        //        return new GloboTicketDBcontext(optionsBuilder.Options);
-        //    }
-        //}
+        public class AppDbContextFactory : IDesignTimeDbContextFactory<DodoBedManufacturingContext>
+        {
+            public DodoBedManufacturingContext CreateDbContext(string[] args)
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<DodoBedManufacturingContext>();
+                optionsBuilder.UseSqlServer("");
+                
+                return new DodoBedManufacturingContext(optionsBuilder.Options);
+            }
+        }
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Tool> Tools { get; set; }
@@ -34,7 +35,11 @@ namespace DodoBed.Manufacturing.SqlPersistence
         public DbSet<DigitalAddress> DigitalAddresses { get; set; }
         public DbSet<DigitalAddressType> DigitalAddressTypes { get; set; }
 
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DodoBedManufacturingContext).Assembly);
+            base.OnModelCreating(modelBuilder); 
+        }
     }
 
 }

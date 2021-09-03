@@ -30,6 +30,7 @@ namespace DodoBed.Manufacturing.Domain.Entities
     }
     public class DigitalAddressType
     {
+        public int DigitalAddressTypeId { get; set; }
         public DigitalAddressTypeName Name { get; set; }
         public string Value { get; set; }
     }
