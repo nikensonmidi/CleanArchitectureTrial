@@ -49,6 +49,11 @@ namespace DodoBed.Manufacturing.SqlPersistence
             return _dbContext.Set<T>().AsQueryable();
         }
 
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await _dbContext.Set<T>().ToListAsync();
+        }
+
         public T Update(T entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
