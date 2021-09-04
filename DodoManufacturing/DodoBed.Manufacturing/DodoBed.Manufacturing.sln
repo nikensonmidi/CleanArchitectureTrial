@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		notes.js = notes.js
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Products", "Products\Products.csproj", "{5565364B-31C6-44C8-BD06-56FC21595FAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{1D0CEF04-504B-4CAC-80BF-D0BBFCEDEFBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D0CEF04-504B-4CAC-80BF-D0BBFCEDEFBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D0CEF04-504B-4CAC-80BF-D0BBFCEDEFBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5565364B-31C6-44C8-BD06-56FC21595FAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5565364B-31C6-44C8-BD06-56FC21595FAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5565364B-31C6-44C8-BD06-56FC21595FAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5565364B-31C6-44C8-BD06-56FC21595FAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{D20E9485-D5AD-43EF-BF98-B82E94B29380} = {F045EAE5-F622-4F57-9D73-1038666FB7D7}
 		{03B34733-7170-4CE7-A2C2-72D290203467} = {8BD851AB-CEEB-4178-9671-09A7A28D4F27}
 		{1D0CEF04-504B-4CAC-80BF-D0BBFCEDEFBF} = {8648C740-5BE9-455A-B5F9-0852BDED9494}
+		{5565364B-31C6-44C8-BD06-56FC21595FAA} = {CFBBBF1F-39FF-4C2F-9366-8773101AFEC7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0D4229F-CBB4-4E1A-92A5-0BD36E1A59B3}
