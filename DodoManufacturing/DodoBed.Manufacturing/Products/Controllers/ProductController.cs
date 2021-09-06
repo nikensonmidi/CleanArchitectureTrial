@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Products
 {
-    [Route("api/[controller]")]
+    [Route("odata/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
     {

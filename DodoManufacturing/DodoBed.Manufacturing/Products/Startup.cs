@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DodoBed.Manufacturing.Application;
+using Microsoft.AspNetCore.OData;
+
 
 namespace Products
 {
@@ -29,7 +31,9 @@ namespace Products
         {
             services.AddSqlPersistence(Configuration);
             services.AddApplicationServices();
-            services.AddControllers();
+
+            services.AddControllers().AddOData(opt => opt.AddRouteComponents("odata",new ProductEntityDataModel().GetEdmModel()));
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Products", Version = "v1" });
