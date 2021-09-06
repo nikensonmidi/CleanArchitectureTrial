@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DodoBed.Manufacturing.Application.Features.Products;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +14,19 @@ namespace Products
     [ApiController]
     public class ProductController : ControllerBase
     {
+        private readonly IMediator _mediatr;
+     
+        public ProductController(IMediator mediatr)
+        {
+            _mediatr = mediatr;
+        }
+
         // GET: api/<ProductController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> Get()
         {
-            return new string[] { "value1", "value2" };
+            var products = await _mediatr.Send(new ProductListQuery());
+            return Ok(products);
         }
 
         // GET api/<ProductController>/5

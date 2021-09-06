@@ -7,8 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.14" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DodoBed.Manufacturing.Application\DodoBed.Manufacturing.Application.csproj" />
+    <ProjectReference Include="..\DodoBed.Manufacturing.SqlPersistence\DodoBed.Manufacturing.SqlPersistence.csproj" />
   </ItemGroup>
 
 </Project>

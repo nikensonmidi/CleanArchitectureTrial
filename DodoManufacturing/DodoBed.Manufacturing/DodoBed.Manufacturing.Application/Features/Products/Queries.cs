@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace DodoBed.Manufacturing.Application.Features.Products
 {
-    public class ProductListQuery:IRequest<IQueryable<ProductDTO>>
+    public class ProductListQuery:IRequest<IEnumerable<ProductDTO>>
     {
 
     }
-    public class ProductListQueryHandler : IRequestHandler<ProductListQuery, IQueryable<ProductDTO>>
+    public class ProductListQueryHandler : IRequestHandler<ProductListQuery, IEnumerable<ProductDTO>>
     {
         private readonly IMapper _mapper;
         private readonly IProductRepository _productRepository;
@@ -25,10 +25,10 @@ namespace DodoBed.Manufacturing.Application.Features.Products
             _productRepository = productRepository;
         }
 
-        public async Task<IQueryable<ProductDTO>> Handle(ProductListQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ProductDTO>> Handle(ProductListQuery request, CancellationToken cancellationToken)
         {
-            var allProducts =  _productRepository.GetAll();
-            return _mapper.Map<IQueryable<ProductDTO>>(allProducts);
+            var allProducts =  _productRepository.GetAll().AsQueryable();
+            return _mapper.Map<IEnumerable<ProductDTO>>(allProducts);
         }
     }
     public class ProductDTO
