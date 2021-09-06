@@ -44,7 +44,7 @@ namespace Products
 
       
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(long id, [FromBody] string value)
         {
         }
 
