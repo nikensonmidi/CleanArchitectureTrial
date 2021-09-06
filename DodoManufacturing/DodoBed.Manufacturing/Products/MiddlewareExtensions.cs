@@ -15,6 +15,7 @@ namespace Products
 
         public static  IApplicationBuilder UseCustomExceptionHandler(this IApplicationBuilder builder)
         {
+            builder.UseMiddleware<ExceptionMiddlewareHandler>();
             return builder;
         }
     }
@@ -54,6 +55,13 @@ namespace Products
                 case ValidationException validationEx:
                     statusCode = HttpStatusCode.BadRequest;
                     result = JsonConvert.SerializeObject(validationEx.ValidationErrors);
+                    break;
+                case BadRequestException validationEx:
+                    statusCode = HttpStatusCode.BadRequest;                 
+                    break;
+                case NotFoundException validationEx:
+                    statusCode = HttpStatusCode.NotFound;
+                   
                     break;
                 default:
                     result = ex.Message;
