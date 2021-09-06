@@ -34,12 +34,12 @@ namespace Products
 
       
       
-        [HttpPost("AddPProduct")]
+        [HttpPost("AddProduct")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post([FromBody] CreateProductCommand createCommand)
         {
-            return Ok(await _mediatr.Send(createCommand));
+            return Created(await _mediatr.Send(createCommand));
         }
 
       
