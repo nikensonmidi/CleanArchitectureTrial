@@ -33,8 +33,9 @@ namespace Products
       
       
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] CreateProductCommand createCommand)
         {
+            return Ok(await _mediatr.Send(createCommand));
         }
 
       
