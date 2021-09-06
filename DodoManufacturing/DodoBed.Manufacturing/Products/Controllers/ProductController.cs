@@ -1,5 +1,6 @@
 ﻿using DodoBed.Manufacturing.Application.Features.Products;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 using System;
@@ -11,8 +12,7 @@ using System.Threading.Tasks;
 
 namespace Products
 {
-    [Route("odata")]
-   
+    [Route("Product")]
     public class ProductController : ODataController
     {
         private readonly IMediator _mediatr;
@@ -23,7 +23,9 @@ namespace Products
         }
 
        
-        [HttpGet]
+        [HttpGet("GetAllProducts")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get()
         {
             var products = await _mediatr.Send(new ProductListQuery());
@@ -32,7 +34,9 @@ namespace Products
 
       
       
-        [HttpPost]
+        [HttpPost("AddPProduct")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post([FromBody] CreateProductCommand createCommand)
         {
             return Ok(await _mediatr.Send(createCommand));

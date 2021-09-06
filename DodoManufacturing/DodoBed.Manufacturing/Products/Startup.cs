@@ -13,7 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using DodoBed.Manufacturing.Application;
 using Microsoft.AspNetCore.OData;
-
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Net.Http.Headers;
 
 namespace Products
 {
@@ -37,6 +38,23 @@ namespace Products
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Products", Version = "v1" });
+            });
+
+
+            // In order to make swagger work with OData
+            services.AddMvcCore(options =>
+            {
+
+                foreach (var outputFormatter in options.OutputFormatters.OfType<OutputFormatter>().Where(x => x.SupportedMediaTypes.Count == 0))
+                {
+                    //Microsoft.AspNetCore.Mvc.Formatters => MediaTypeHeaderValue
+                    outputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
+                }
+
+                foreach (var inputFormatter in options.InputFormatters.OfType<InputFormatter>().Where(x => x.SupportedMediaTypes.Count == 0))
+                {
+                    inputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
+                }
             });
         }
 
