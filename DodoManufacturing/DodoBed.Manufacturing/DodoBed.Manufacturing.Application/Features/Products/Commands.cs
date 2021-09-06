@@ -55,7 +55,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
             var updatedProduct = _mapper.Map<Product>(request);
             var product = await  _productRepository.UpdateAsync(updatedProduct);
-            request = _mapper.Map<UpdateProductCommand>(product);
+            _mapper.Map(product, request, typeof(Product), typeof(UpdateProductCommand));
             return request;
         }
     }
