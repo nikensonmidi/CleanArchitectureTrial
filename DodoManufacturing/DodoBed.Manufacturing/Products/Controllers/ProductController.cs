@@ -44,14 +44,16 @@ namespace Products
 
       
         [HttpPut("{id}")]
-        public void Put(long id, [FromBody] string value)
+        public async Task<IActionResult> Put(long id, [FromBody] UpdateProductCommand updateCommand)
         {
+            return Ok(await _mediatr.Send(updateCommand));
         }
 
        
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(long id)
         {
+            return Ok(await _mediatr.Send(new DeleteProductCommand { ProductId = id }));
         }
     }
 }
