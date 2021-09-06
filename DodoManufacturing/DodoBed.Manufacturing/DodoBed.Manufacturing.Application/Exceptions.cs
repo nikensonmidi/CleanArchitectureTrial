@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,16 @@ namespace DodoBed.Manufacturing.Application
         {
 
         }
-        public IEnumerable<string> ValidationErrors { get; set; }
+        public ValidationException(IEnumerable<ValidationFailure> failures )
+        {
+            ValidationErrors = new List<string>();
+            foreach (var item in failures)
+            {
+
+                ValidationErrors.Add(item.ErrorMessage);
+            }
+        }
+        public List<string> ValidationErrors { get; set; }
 
     }
 
@@ -30,6 +40,7 @@ namespace DodoBed.Manufacturing.Application
         {
 
         }
+       
     }
 
 
