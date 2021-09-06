@@ -51,11 +51,11 @@ namespace Products
             }
 
             app.UseHttpsRedirection();
-
+           
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseCustomExceptionHandler();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
