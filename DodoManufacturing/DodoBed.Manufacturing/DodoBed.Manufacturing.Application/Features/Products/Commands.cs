@@ -11,11 +11,8 @@ using System.Threading.Tasks;
 
 namespace DodoBed.Manufacturing.Application.Features.Products
 {
-    public class CreateProductCommand:IRequest<long>
+    public class CreateProductCommand: ProductDTO,IRequest<long>
     {
-        public long ProductId { get; set; }
-        public string Description { get; set; }
-        public string Name { get; set; }
     }
 
     class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, long>
