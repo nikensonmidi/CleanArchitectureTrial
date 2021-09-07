@@ -18,29 +18,44 @@ namespace BenchMarks.Applicatrion
         private readonly ProductRepoMock _productRepo;
         public ProductQuery( )
         {
-            _productRepo = new ProductRepoMock();
+            _productRepo = new ProductRepoMock(10000);
         }
         [Benchmark(Baseline =true)]
         public async Task GetProductQueryStats( )
         {
-            _productRepo.GetAll();
+            var products = _productRepo.GetAll();
         }
 
         [Benchmark]
-        public async Task AddMoreProduct()
+        public async Task GetProductsLambda()
         {
-            _productRepo.SetMockdata(10000);
-            _productRepo.GetAll();
+      
+            var products =_productRepo.GetAll();
+            products= products.Where(e => e.ItemId > 1);
         }
+        [Benchmark]
+        public async Task GetProductsQuery()
+        {
+            var products = from p in _productRepo.GetAll()
+                           where p.ItemId > 1
+                           select p;
+                           
 
+
+        }
     }
 
     public class ProductRepoMock : IProductRepository
     {
         private IEnumerable<Product> _products;
+        private IQueryable<Product> _queriedProducts;
         public ProductRepoMock()
         {
             SetMockdata();
+        }
+        public ProductRepoMock(int iterations)
+        {
+            SetMockdata(iterations);
         }
         public Product Add(Product entity)
         {
@@ -64,6 +79,8 @@ namespace BenchMarks.Applicatrion
 
         public IEnumerable<Product> GetAll()
             => _products;
+        public IQueryable<Product> GetAllQueryable()
+           => _queriedProducts;
 
 
 
@@ -91,6 +108,7 @@ namespace BenchMarks.Applicatrion
                 tempList.Add(new Product { ItemId = i, Name = $"item{1}", Description = $"descrtion item{i}" });
             }
             _products = tempList;
+            _queriedProducts = tempList.AsQueryable();
         }
     }
 
