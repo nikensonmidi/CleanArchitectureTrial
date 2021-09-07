@@ -11,6 +11,7 @@ namespace DodoBed.Manufacturing.Application.Interfaces.Persistence
     {
 
         IEnumerable<T>  GetAll();
+        Task<IEnumerable<T>> GetAllAsync();
         T Add(T entity);
         Task<T> AddAsync(T entity);
         void Delete(T entity);
