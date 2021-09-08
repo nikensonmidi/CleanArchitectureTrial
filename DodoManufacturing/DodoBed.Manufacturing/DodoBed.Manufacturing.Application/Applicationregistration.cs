@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using DodoBed.Manufacturing.Application.Features.Products;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddScoped<CreateProductCommandValidation>();
             return services;
         }
     }

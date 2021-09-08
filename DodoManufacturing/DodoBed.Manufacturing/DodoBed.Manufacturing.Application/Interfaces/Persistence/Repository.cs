@@ -23,7 +23,9 @@ namespace DodoBed.Manufacturing.Application.Interfaces.Persistence
 
     public interface IProductRepository:IRepository<Product>
     {
-       
+
+        public Task<bool> IsNameUnique(string name);
+        public Task<bool> IsDescriptionUnique(string description);
     }
 
 
