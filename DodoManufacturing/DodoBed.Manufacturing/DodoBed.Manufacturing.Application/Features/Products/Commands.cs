@@ -31,7 +31,9 @@ namespace DodoBed.Manufacturing.Application.Features.Products
         {
             request = await request.AsValid();
             var product = _mapper.Map<Product>(request);
-           var response =  await _productRepository.AddAsync(product);
+            bool isDuplicated = _productRepository.GetAll().Any(e =>  e.Name.Trim().ToLower() == product.Name.Trim().ToLower());
+            if (isDuplicated) { throw new BadRequestException($"That name {product.Name} already exist."); }
+            var response =  await _productRepository.AddAsync(product);
             return response.ItemId;
         }
     }
@@ -54,6 +56,8 @@ namespace DodoBed.Manufacturing.Application.Features.Products
         {
 
             var updatedProduct = _mapper.Map<Product>(request);
+           bool isDuplicated = _productRepository.GetAll().Any(e => e.ItemId != updatedProduct.ItemId && e.Name.Trim().ToLower() == updatedProduct.Name.Trim().ToLower());
+            if (isDuplicated) { throw new BadRequestException($"That name {updatedProduct.Name} already exist."); }
             var product = await  _productRepository.UpdateAsync(updatedProduct);
             _mapper.Map(product, request, typeof(Product), typeof(UpdateProductCommand));
             return request;
