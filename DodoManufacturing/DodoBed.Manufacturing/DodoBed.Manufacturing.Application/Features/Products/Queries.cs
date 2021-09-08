@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DodoBed.Manufacturing.Application.Interfaces.Persistence;
+using DodoBed.Manufacturing.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
         public async Task<IEnumerable<ProductDTO>> Handle(ProductListQuery request, CancellationToken cancellationToken)
         {
-            var allProducts = _productRepository.GetAll();
+            var allProducts =  _productRepository.GetAll();
             return _mapper.Map<IEnumerable<ProductDTO>>(allProducts);
         }
     }
@@ -36,5 +37,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
         public long ProductId { get; set; }
         public string Description { get; set; }
         public string Name { get; set; }
+        public string ProductNotes { get; set; }
+        public string ProductInHouseName { get; set; }
     }
 }
