@@ -29,7 +29,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
         public async Task<long> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            request = await request.Validate();
+            request = await request.AsValid();
             var product = _mapper.Map<Product>(request);
            var response =  await _productRepository.AddAsync(product);
             return response.ItemId;

@@ -10,7 +10,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
     public static class ProductCommandValidator
     {
 
-        public static async Task<CreateProductCommand> Validate(this CreateProductCommand request)
+        public static async Task<CreateProductCommand> AsValid(this CreateProductCommand request)
         {
           
             var validation = await new CreateProductCommandValidation().ValidateAsync(request);
