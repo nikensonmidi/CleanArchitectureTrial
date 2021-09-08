@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DodoBed.Manufacturing.Application.Interfaces.Persistence;
 using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DodoBed.Manufacturing.Application.Features.Products
 {
@@ -20,10 +21,51 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
             return request;
         }
+        public static async Task<UpdateProductCommand> AsValid(this UpdateProductCommand request, UpdateProductCommandValidation validator)
+        {
+
+            var validation = await validator.ValidateAsync(request);
+            if (validation.Errors.Count > 0) { throw new ValidationException(validation.Errors); }
+
+            return request;
+        }
 
 
-      
+
     }
+    [ScopedService]
+    public class UpdateProductCommandValidation:AbstractValidator<UpdateProductCommand>
+    {
+        private readonly IProductRepository _productRepository;
+
+        public UpdateProductCommandValidation(IProductRepository productRepository)
+        {
+            _productRepository = productRepository;
+            RuleFor(e => e.Name)
+                .NotEmpty().WithMessage("{PropertyName} cannot be empty")
+                .NotNull();
+
+            RuleFor(e => e.Description)
+              .NotEmpty().WithMessage("{PropertyName} cannot be empty")
+              .NotNull();
+             
+            RuleFor(e => e)
+            .MustAsync(UniqueDescription).WithMessage("The description {PropertyValue} already exists.")
+               .MustAsync(UniqueName).WithMessage("The name {PropertyValue} already exists.");
+
+        }
+        private async Task<bool> UniqueName(UpdateProductCommand e, CancellationToken token)
+        {
+
+            return ! _productRepository.GetAll().Any(p => p.ItemId != e.ProductId && p.Name.Trim().ToLower() == e.Name.Trim().ToLower() );
+        }
+
+        private async Task<bool> UniqueDescription(UpdateProductCommand e, CancellationToken token)
+        {
+            return !_productRepository.GetAll().Any(p => p.ItemId != e.ProductId && p.Description.Trim().ToLower() == e.Description.Trim().ToLower());
+        }
+    }
+    [ScopedService]
     public class CreateProductCommandValidation : AbstractValidator<CreateProductCommand>
     {
         private readonly IProductRepository _productRepository;

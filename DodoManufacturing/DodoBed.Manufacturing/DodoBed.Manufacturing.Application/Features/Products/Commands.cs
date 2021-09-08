@@ -47,15 +47,17 @@ namespace DodoBed.Manufacturing.Application.Features.Products
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
-        public UpdateProductCommandHandler(IProductRepository productRepository, IMapper mapper)
+        private readonly UpdateProductCommandValidation _validator;
+        public UpdateProductCommandHandler(IProductRepository productRepository, IMapper mapper, UpdateProductCommandValidation validator)
         {
             _productRepository = productRepository;
             _mapper = mapper;
+            _validator = validator;
         }
 
         public async Task<UpdateProductCommand> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
-
+            request = await request.AsValid(_validator);
             var updatedProduct = _mapper.Map<Product>(request);
        
             var product = await  _productRepository.UpdateAsync(updatedProduct);

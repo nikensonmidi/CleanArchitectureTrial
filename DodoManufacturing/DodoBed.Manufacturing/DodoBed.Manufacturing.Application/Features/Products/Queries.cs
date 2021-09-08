@@ -27,7 +27,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
         public async Task<IEnumerable<ProductDTO>> Handle(ProductListQuery request, CancellationToken cancellationToken)
         {
-            var allProducts =await Task.FromResult( _productRepository.GetAll().AsQueryable());
+            var allProducts = _productRepository.GetAll();
             return _mapper.Map<IEnumerable<ProductDTO>>(allProducts);
         }
     }

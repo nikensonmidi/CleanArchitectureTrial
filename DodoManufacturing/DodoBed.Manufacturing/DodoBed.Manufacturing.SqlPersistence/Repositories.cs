@@ -46,7 +46,7 @@ namespace DodoBed.Manufacturing.SqlPersistence
 
         public IEnumerable<T> GetAll()
         {
-            return _dbContext.Set<T>().AsQueryable();
+            return _dbContext.Set<T>().AsEnumerable();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()

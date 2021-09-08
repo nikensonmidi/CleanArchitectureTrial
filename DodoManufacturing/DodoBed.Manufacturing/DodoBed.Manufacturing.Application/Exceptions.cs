@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DodoBed.Manufacturing.Application
 {
-    public class ValidationException:Exception
+    public class ValidationException:ApplicationException
     {
         public ValidationException(string message):base(message)
         {
@@ -42,6 +42,8 @@ namespace DodoBed.Manufacturing.Application
         }
        
     }
+
+   
 
 
 }
