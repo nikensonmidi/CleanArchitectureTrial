@@ -21,7 +21,7 @@ namespace DodoBed.Manufacturing.SqlPersistence
             public DodoBedManufacturingContext CreateDbContext(string[] args)
             {
                 var optionsBuilder = new DbContextOptionsBuilder<DodoBedManufacturingContext>();
-                optionsBuilder.UseSqlServer("Data source = DESKTOP-OUHGCH1\\MSSQLSERVER01; initial catalog=DodoManufacturing; Integrated Security=True");
+                optionsBuilder.UseSqlServer();
                 
                 return new DodoBedManufacturingContext(optionsBuilder.Options);
             }
