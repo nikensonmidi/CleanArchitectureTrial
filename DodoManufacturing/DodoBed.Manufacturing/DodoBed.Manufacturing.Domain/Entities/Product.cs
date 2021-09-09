@@ -1,16 +1,14 @@
-﻿using DodoBed.Manufacturing.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DodoBed.Manufacturing.Domain.Entities
+﻿namespace DodoBed.Manufacturing.Domain.Entities
 {
-    public class Product:Item
+    public class Product : Item
     {
         public string Notes { get; set; }
         public string InHouseName { get; set; }
+
+    }
+
+    public class ManufacturedProduct : Product
+    {
         public Dimension Dimension { get; set; }
     }
 }
