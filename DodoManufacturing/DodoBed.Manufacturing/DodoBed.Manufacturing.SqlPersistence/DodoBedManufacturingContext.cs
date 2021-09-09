@@ -21,7 +21,7 @@ namespace DodoBed.Manufacturing.SqlPersistence
             public DodoBedManufacturingContext CreateDbContext(string[] args)
             {
                 var optionsBuilder = new DbContextOptionsBuilder<DodoBedManufacturingContext>();
-                optionsBuilder.UseSqlServer("");
+                optionsBuilder.UseSqlServer("Data source = DESKTOP-OUHGCH1\\MSSQLSERVER01; initial catalog=DodoManufacturing; Integrated Security=True");
                 
                 return new DodoBedManufacturingContext(optionsBuilder.Options);
             }
@@ -34,6 +34,8 @@ namespace DodoBed.Manufacturing.SqlPersistence
         public DbSet<Address> Addresses { get; set; }
         public DbSet<DigitalAddress> DigitalAddresses { get; set; }
         public DbSet<DigitalAddressType> DigitalAddressTypes { get; set; }
+        public DbSet<Dimension> Dimensions { get; set; }
+        public DbSet<ProductLocation> ProductLocations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

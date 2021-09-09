@@ -4,14 +4,16 @@ using DodoBed.Manufacturing.SqlPersistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DodoBed.Manufacturing.SqlPersistence.Migrations
 {
     [DbContext(typeof(DodoBedManufacturingContext))]
-    partial class DodoBedManufacturingContextModelSnapshot : ModelSnapshot
+    [Migration("20210909170826_migration1")]
+    partial class migration1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
