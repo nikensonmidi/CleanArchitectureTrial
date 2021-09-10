@@ -8,6 +8,7 @@ namespace DodoBed.Manufacturing.Domain.Entities
 {
     public class StorageLocation
     {
+        public int StorageLocationID { get; set; }
         public int BuildingNumber { get; set; }
         public int SectionNumber { get; set; }
         public int AisleNumber { get; set; }

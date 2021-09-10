@@ -10,8 +10,9 @@ namespace DodoBed.Manufacturing.Domain.Entities
     {
         public int PriceId { get; set; }
         public decimal ListPrice { get; set; }
-        public decimal UNitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
         public decimal LowestRebatePrice { get; set; }
         public decimal BundlePrice { get; set; }
+        public decimal PurchasingPrice { get; set; }
     }
 }

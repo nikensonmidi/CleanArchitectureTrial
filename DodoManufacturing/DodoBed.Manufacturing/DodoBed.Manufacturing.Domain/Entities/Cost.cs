@@ -6,7 +6,10 @@ namespace DodoBed.Manufacturing.Domain.Entities
     public class Cost:AuditableEntity
     {
         public long CostId { get; set; }
-        public IEnumerable<ActivityBasedCost> ActivityBasedCost { get; set; }
+        public decimal UnitCost { get; set; }
+        public decimal FreightCost { get; set; }
+        public decimal AverageUnitCost { get; set; }
+        public ICollection<ActivityBasedCost> ActivityBasedCost { get; set; }
     }
 
     public class ActivityBasedCost

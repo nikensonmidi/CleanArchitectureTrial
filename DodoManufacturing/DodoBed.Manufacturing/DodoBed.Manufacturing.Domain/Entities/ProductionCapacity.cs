@@ -2,6 +2,7 @@
 
 namespace DodoBed.Manufacturing.Domain.Entities
 {
+    //https://www.sisense.com/blog/calculate-mtd-qtd-ytd/
     public class ProductionCapacity
     {
         public long ProductionCapacityId { get; set; }
@@ -9,7 +10,7 @@ namespace DodoBed.Manufacturing.Domain.Entities
         public int Year { get; set; }
         public double AmountProduced { get; set; }
         public double AmountProjected { get; set; }
-        public IEnumerable<Note> Notes { get; set; }
+        public ICollection<Note> Notes { get; set; }
     }
 
     public enum Month

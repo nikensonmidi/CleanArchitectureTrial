@@ -48,5 +48,46 @@ namespace DodoBed.Manufacturing.SqlPersistence
         }
     }
 
+    public class ManufacturedProductInventoryConfiguration : IEntityTypeConfiguration<ManufacturedProductInventory>
+    {
+        public void Configure(EntityTypeBuilder<ManufacturedProductInventory> builder)
+        {
+            builder.HasKey(e => e.ManufacturedProductInventoryId);
+        }
+    }
+
+   public  class ManufacturingShopProcessorStateConfiguration : IEntityTypeConfiguration<ManufacturingShopProcessorState>
+    {
+        public void Configure(EntityTypeBuilder<ManufacturingShopProcessorState> builder)
+        {
+            builder.Property(e => e.StateName)
+                .HasConversion<string>();
+        }
+    }
+    class DigitalAddressTypeConfiguration : IEntityTypeConfiguration<DigitalAddressType>
+    {
+        public void Configure(EntityTypeBuilder<DigitalAddressType> builder)
+        {
+            builder.Property(e => e.Name)
+                .HasConversion<string>();
+        }
+    }
+
+    public class ProductionCapacityConfiguration : IEntityTypeConfiguration<ProductionCapacity>
+    {
+        public void Configure(EntityTypeBuilder<ProductionCapacity> builder)
+        {
+            builder.Property(e => e.Month)
+                .HasConversion<string>();
+        }
+    }
+
+    class ObsoleteManufacturedProductConfiguration : IEntityTypeConfiguration<ObsoleteManufacturedProduct>
+    {
+        public void Configure(EntityTypeBuilder<ObsoleteManufacturedProduct> builder)
+        {
+            builder.HasKey(e => e.ObsoleteManufacturedProductId);
+        }
+    }
 
 }

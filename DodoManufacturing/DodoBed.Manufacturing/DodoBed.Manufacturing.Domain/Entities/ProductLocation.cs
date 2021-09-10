@@ -1,8 +1,10 @@
 ﻿namespace DodoBed.Manufacturing.Domain.Entities
 {
-    public class ProductLocation : StorageLocation
+    public class ProductLocation 
     {
-        public int ProductLocationId { get; set; }
+        public StorageLocation Location { get; set; }
+        public int ProductLocationID { get; set; }
         public Product Product { get; set; }
+        public Dimension Size { get; set; }
     }
 }
