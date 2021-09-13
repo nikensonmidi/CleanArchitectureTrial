@@ -6,7 +6,7 @@ namespace DodoBed.Manufacturing.Domain.Entities
 {
     public class Product : Item
     {
-        public string Notes { get; set; }
+        public ICollection<Note> Notes { get; set; }
         public string InHouseName { get; set; }
         public string Code { get; set; }
         public Cost ProductCost { get; set; }
@@ -50,6 +50,7 @@ namespace DodoBed.Manufacturing.Domain.Entities
         public long ManufacturedProductAssemblyId { get; set; }
         public Product Assembly { get; set; }
         public double QuantityNeeded { get; set; }
+        public ICollection<ManufacturedProductAssembly> ProductComponents { get; set; }
 
     }
 
