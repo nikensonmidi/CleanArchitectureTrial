@@ -16,7 +16,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
     {
     }
 
-    class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, long>
+   public  class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, long>
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
