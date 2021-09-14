@@ -187,6 +187,66 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
 
         }
         [Fact]
+        public async Task Should_Return_Ok_When_Updating_Product()
+        {
+            //Arrange
+
+
+            _mediator.Setup(m => m.Send(It.IsAny<ProductListQuery>(), new CancellationToken()));
+            var command = new UpdateProductCommand
+            {
+                Name = "product1",
+                Description = "Product1 description",
+                ProductId = 1
+            };
+            var controller = new ProductController(_mediator.Object);
+            //Act
+            var response = await controller.Put(command.ProductId, command);
+            //Assert
+            Assert.IsType<OkObjectResult>(response);
+
+        }
+        [Fact]
+        public async Task Should_Return_Badrequest_When_Updating_NullProduct()
+        {
+            //Arrange
+
+
+            _mediator.Setup(m => m.Send(It.IsAny<UpdateProductCommand>(), new CancellationToken()));
+            var command = new UpdateProductCommand
+            {
+                Name = "product1",
+                Description = "Product1 description",
+                ProductId = 1
+            };
+            var controller = new ProductController(_mediator.Object);
+            //Act
+            var response = await controller.Put(command.ProductId, null);
+            //Assert
+            Assert.IsType<BadRequestObjectResult>(response);
+
+        }
+        [Fact]
+        public async Task Should_Return_Badrequest_When_Updating_Product_Id_Zero()
+        {
+            //Arrange
+
+
+            _mediator.Setup(m => m.Send(It.IsAny<UpdateProductCommand>(), new CancellationToken()));
+            var command = new UpdateProductCommand
+            {
+                Name = "product1",
+                Description = "Product1 description",
+                ProductId = 0
+            };
+            var controller = new ProductController(_mediator.Object);
+            //Act
+            var response = await controller.Put(command.ProductId, command);
+            //Assert
+            Assert.IsType<BadRequestObjectResult>(response);
+
+        }
+        [Fact]
         public async Task Should_Update_Product()
         {
             //Arrange
@@ -196,10 +256,10 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
                 Description = "Product1 description",
                 ProductId = 1
             };
-          
+
             var product = new Domain.Entities.Product { Name = "product1", Description = "Product7 description", ItemId = 1 };
 
-             _productRepository.Setup(m => m.UpdateAsync(It.IsAny<Domain.Entities.Product>()) ).ReturnsAsync(product);
+            _productRepository.Setup(m => m.UpdateAsync(It.IsAny<Domain.Entities.Product>())).ReturnsAsync(product);
             var mapconfig = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();
@@ -229,7 +289,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
             {
                 new Domain.Entities.Product{Name ="product1", Description="Product7 description", ItemId=1},
                 new Domain.Entities.Product{Name ="product2", Description="Product1 description", ItemId=2}
-               
+
             };
             _productRepository.Setup(m => m.GetAll()).Returns(products);
             var mapconfig = new MapperConfiguration(cfg =>
@@ -242,9 +302,6 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
 
             //Act
             await Assert.ThrowsAsync<ValidationException>(async () => await handler.Handle(command, new CancellationToken()));
-
-
-
         }
 
 

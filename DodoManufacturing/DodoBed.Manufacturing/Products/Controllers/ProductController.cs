@@ -39,6 +39,7 @@ namespace Products
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post([FromBody] CreateProductCommand createCommand)
         {
+            if (createCommand == null) { return BadRequest("parameter is null"); }
             return Ok(await _mediatr.Send(createCommand));
         }
 
@@ -46,6 +47,8 @@ namespace Products
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, [FromBody] UpdateProductCommand updateCommand)
         {
+            if(updateCommand == null) { return BadRequest("parameter is null"); }
+            if (id == 0) { return BadRequest("id cannot be 0"); }
             return Ok(await _mediatr.Send(updateCommand));
         }
 
@@ -53,6 +56,7 @@ namespace Products
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
+            if (id == 0) { return BadRequest("id cannot be 0"); }
             return Ok(await _mediatr.Send(new DeleteProductCommand { ProductId = id }));
         }
     }
