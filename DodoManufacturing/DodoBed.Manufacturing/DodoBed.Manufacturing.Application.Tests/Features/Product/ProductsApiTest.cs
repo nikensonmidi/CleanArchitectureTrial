@@ -24,7 +24,10 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
         public ProductQueriesTest()
         {
             _mediator = new Mock<IMediator>();
+           
             _mapper = new Mock<IMapper>();
+           
+          
             _productRepository = new Mock<IProductRepository>();
             _createValidator =new CreateProductCommandValidation(_productRepository.Object);
 
@@ -139,19 +142,8 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
                 Description = "product description only"
             };
             var handler = new CreateProductCommandHandler( _productRepository.Object,_mapper.Object, _createValidator);
-
-            try
-            {
-                //Act
-                var response = await handler.Handle(command, new CancellationToken());
-              
-            }
-            catch (System.Exception ex)
-            {
-                //Assert
-                Assert.IsType<ValidationException>(ex);
-            }
-
+            await Assert.ThrowsAsync<ValidationException>(async () => await handler.Handle(command, new CancellationToken()));
+          
         }
         [Fact]
         public async Task Should_Not_Add_Product_without_Description()
@@ -163,21 +155,12 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
             };
             var handler = new CreateProductCommandHandler(_productRepository.Object, _mapper.Object, _createValidator);
 
-            try
-            {
-                //Act
-                var response = await handler.Handle(command, new CancellationToken());
 
-            }
-            catch (System.Exception ex)
-            {
-                //Assert
-                Assert.IsType<ValidationException>(ex);
-            }
-
+            await Assert.ThrowsAsync<ValidationException>(async () => await handler.Handle(command, new CancellationToken()));
+          
         }
         [Fact]
-        public async Task Should_Not_Add_Product_with_Duplicated_Name()
+        public async Task Should_Not_Add_Product_with_Duplicated_NameOrDescription()
         {
             //Arrange
             var command = new CreateProductCommand
@@ -185,20 +168,54 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
                 Name = "product1",
                 Description = "Product1 description"
             };
-            _productRepository.Setup(m => m.Add(new Domain.Entities.Product { Name = "product1", Description = "Product1 description" }));
-            var handler = new CreateProductCommandHandler(_productRepository.Object, _mapper.Object, _createValidator);
-
-            try
+            var products = new List<Domain.Entities.Product>
             {
+                new Domain.Entities.Product{Name ="product1", Description="Product7 description", ItemId=1},
+                new Domain.Entities.Product{Name ="product2", Description="product1 descriptiOn", ItemId=1}
+
+            };
+            _productRepository.Setup(m => m.GetAll()).Returns(products);
+            var mapconfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<MappingProfile>();
+            });
+            var mapper = new Mapper(mapconfig);
+            var handler = new CreateProductCommandHandler(_productRepository.Object, mapper, _createValidator);
+
+      
                 //Act
-                var response = await handler.Handle(command, new CancellationToken());
-
-            }
-            catch (System.Exception ex)
+         await   Assert.ThrowsAsync<ValidationException>(async () => await handler.Handle(command, new CancellationToken()));
+          
+        }
+        [Fact]
+        public async Task Should_Not_Update_Product_with_Duplicated_NameOrDescription()
+        {
+            //Arrange
+            var command = new UpdateProductCommand
             {
-                //Assert
-                Assert.IsType<ValidationException>(ex);
-            }
+                Name = "product1",
+                Description = "Product1 description",
+                ProductId = 1
+            };
+            var products = new List<Domain.Entities.Product>
+            {
+                new Domain.Entities.Product{Name ="product1", Description="Product7 description", ItemId=1},
+                new Domain.Entities.Product{Name ="product1", Description="Product2 description", ItemId=2},
+                new Domain.Entities.Product{Name ="produCt1", Description="Product3 description",ItemId=3}
+            };
+            _productRepository.Setup(m => m.GetAll()).Returns(products);
+            var mapconfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<MappingProfile>();
+            });
+            var mapper = new Mapper(mapconfig);
+            var updateValidator = new UpdateProductCommandValidation(_productRepository.Object);
+            var handler = new UpdateProductCommandHandler(_productRepository.Object, mapper, updateValidator);
+
+                //Act
+            await Assert.ThrowsAsync<ValidationException>(async () => await handler.Handle(command, new CancellationToken()));
+
+           
 
         }
 

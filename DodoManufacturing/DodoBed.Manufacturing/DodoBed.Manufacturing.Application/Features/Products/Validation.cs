@@ -56,7 +56,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
         }
         private async Task<bool> UniqueName(UpdateProductCommand e, CancellationToken token)
         {
-
+    
             return ! _productRepository.GetAll().Any(p => p.ItemId != e.ProductId && p.Name.Trim().ToLower() == e.Name.Trim().ToLower() );
         }
 
@@ -87,12 +87,12 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
         private async Task<bool> UniqueName(string name, CancellationToken token)
         {
-            return !(await _productRepository.IsNameUnique(name));
+            return !_productRepository.GetAll().Any(p =>  p.Name.Trim().ToLower() == name.Trim().ToLower());
         }
 
         private async Task<bool> UniqueDescription(string desc, CancellationToken token)
         {
-            return !(await _productRepository.IsDescriptionUnique(desc));
+            return ! _productRepository.GetAll().Any(p => p.Description.Trim().ToLower() == desc.Trim().ToLower());
         }
     }
 
