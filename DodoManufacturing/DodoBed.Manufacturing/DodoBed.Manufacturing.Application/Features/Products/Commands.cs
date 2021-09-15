@@ -87,7 +87,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
         {
             if (request == null) { throw new ValidationException("request cannot be null"); }
             var deletedProduct = _productRepository.GetAll().FirstOrDefault(e => e.ItemId == request.ProductId);
-            if(deletedProduct == null) { throw new BadRequestException("Unable to locate product"); }
+            if(deletedProduct == null) { throw new ValidationException("Unable to locate product"); }
             await _productRepository.DeleteAsync(deletedProduct);
             return Unit.Value;
         }

@@ -395,7 +395,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
 
 
             //Assert
-            await Assert.ThrowsAnyAsync<BadRequestException>(async () => await handler.Handle(command, new CancellationToken()));
+            await Assert.ThrowsAnyAsync<ValidationException>(async () => await handler.Handle(command, new CancellationToken()));
         }
 
     }
