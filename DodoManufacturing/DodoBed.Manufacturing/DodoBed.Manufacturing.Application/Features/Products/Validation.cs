@@ -29,7 +29,14 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
             return request;
         }
+        public static async Task<DeleteProductCommand> AsValid(this DeleteProductCommand request, DeleteProductCommandValidation validator)
+        {
 
+            var validation = await validator.ValidateAsync(request);
+            if (validation.Errors.Count > 0) { throw new ValidationException(validation.Errors); }
+
+            return request;
+        }
 
 
     }
@@ -99,5 +106,28 @@ namespace DodoBed.Manufacturing.Application.Features.Products
             return ! _productRepository.GetAll().Any(p => p.Description.Trim().ToLower() == desc.Trim().ToLower());
         }
     }
+    [ScopedService]
+    public class DeleteProductCommandValidation : AbstractValidator<DeleteProductCommand>
+    {
+        private readonly IProductRepository _productRepository;
 
+
+        public DeleteProductCommandValidation(IProductRepository productRepository)
+        {
+            _productRepository = productRepository;
+
+            RuleFor(e => e.ProductId)
+                .MustAsync(Exist).WithMessage("Unable to locate product.")
+            .GreaterThan(0).WithMessage("{PropertyName} cannot be less than 0");
+           
+        }
+
+        private async Task<bool> Exist(long id, CancellationToken token)
+        {
+            var product = _productRepository.GetAll();
+            return _productRepository.GetAll().Any(p => p.ItemId == id);
+        }
+
+      
+    }
 }

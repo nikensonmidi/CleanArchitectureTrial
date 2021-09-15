@@ -41,10 +41,7 @@ namespace Products
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id)
-        {
-            if (id < 1) { return BadRequest("id cannot be less than 1"); }
-            return Ok(await _mediatr.Send(new DeleteProductCommand { ProductId = id }));
-        }
+        public async Task<IActionResult> Delete(long id)=> Ok(await _mediatr.Send(new DeleteProductCommand { ProductId = id }));
+
     }
 }

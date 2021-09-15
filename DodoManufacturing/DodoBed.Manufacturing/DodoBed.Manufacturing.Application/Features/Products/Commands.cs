@@ -73,18 +73,21 @@ namespace DodoBed.Manufacturing.Application.Features.Products
     {
         private readonly IMapper _mapper;
         private readonly IProductRepository _productRepository;
+        private readonly DeleteProductCommandValidation _validator;
 
-        public DeleteProductCommandHandler(IMapper mapper, IProductRepository productRepository)
+        public DeleteProductCommandHandler(IMapper mapper, IProductRepository productRepository, DeleteProductCommandValidation validator)
         {
             _mapper = mapper;
             _productRepository = productRepository;
+            _validator = validator;
         }
 
         public async Task<Unit> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
             if (request == null) { throw new ValidationException("request cannot be null"); }
+            request = await request.AsValid(_validator);
             var deletedProduct = _productRepository.GetAll().FirstOrDefault(e => e.ItemId == request.ProductId);
-            if (deletedProduct == null) { throw new ValidationException("Unable to locate product"); }
+          //  if (deletedProduct == null) { throw new ValidationException("Unable to locate product"); }
             await _productRepository.DeleteAsync(deletedProduct);
             return Unit.Value;
         }

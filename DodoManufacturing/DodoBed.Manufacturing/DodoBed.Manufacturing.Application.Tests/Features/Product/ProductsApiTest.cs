@@ -233,13 +233,6 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
         public async Task Should_Return_Badrequest_When_Updating_NullProduct()
         {
             //Arrange
-
-            var command = new UpdateProductCommand
-            {
-                Name = "product1",
-                Description = "Product1 description",
-                ProductId = 0
-            };
             var product = new Domain.Entities.Product { Name = "product1", Description = "Product1 description", ItemId = 0 };
 
             _productRepository.Setup(m => m.UpdateAsync(It.IsAny<Domain.Entities.Product>())).ReturnsAsync(product);
@@ -248,7 +241,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
             var handler = new UpdateProductCommandHandler(_productRepository.Object, _mapper, updateValidator);
             //Act
 
-            await Assert.ThrowsAnyAsync<ValidationException>(async () => await handler.Handle(command, new CancellationToken()));
+            await Assert.ThrowsAnyAsync<ValidationException>(async () => await handler.Handle(null, new CancellationToken()));
 
         }
         [Fact]
@@ -350,8 +343,8 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
             _productRepository.Setup(m => m.DeleteAsync(It.Is<Domain.Entities.Product>(p => p.ItemId > 0)))
                 .Callback<Domain.Entities.Product>((p) => products.Remove(p));
 
-
-            var handler = new DeleteProductCommandHandler(_mapper, _productRepository.Object);
+            var deleteValidator = new DeleteProductCommandValidation(_productRepository.Object);
+            var handler = new DeleteProductCommandHandler(_mapper, _productRepository.Object, deleteValidator);
 
             var queryHandler = new ProductListQueryHandler(_mapper, _productRepository.Object);
 
@@ -364,7 +357,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
             Assert.DoesNotContain(newList, e => e.ProductId == addedProduct.ItemId);
         }
         [Fact]
-        public async Task Should_Not_Delete_Non_Existing_Product()
+        public async Task Should_Throw_Exception_When_Deleting_Non_Existing_Product()
         {
             //Arrange
             var command = new DeleteProductCommand
@@ -389,8 +382,8 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
             _productRepository.Setup(m => m.DeleteAsync(It.Is<Domain.Entities.Product>(p => p.ItemId > 0)))
                 .Callback<Domain.Entities.Product>((p) => products.Remove(p));
 
-
-            var handler = new DeleteProductCommandHandler(_mapper, _productRepository.Object);
+            var deleteValidator = new DeleteProductCommandValidation(_productRepository.Object);
+            var handler = new DeleteProductCommandHandler(_mapper, _productRepository.Object, deleteValidator);
 
 
 
