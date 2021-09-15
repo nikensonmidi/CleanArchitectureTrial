@@ -39,6 +39,7 @@ namespace Products
             }
             catch (Exception ex)
             {
+                //Log exception with Serilog
                await  ConvertExceptiopn(ex,context);
             }
 

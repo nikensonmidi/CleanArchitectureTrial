@@ -198,7 +198,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
             {
                 new Domain.Entities.Product{Name ="product1      ", Description="Product7 description", ItemId=1},
                 new Domain.Entities.Product{Name ="product2", Description="product1 descriptiOn", ItemId=2},
-                
+
             };
             _productRepository.Setup(m => m.GetAll()).Returns(products);
 
@@ -257,7 +257,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
             //Arrange
 
 
-           
+
             var command = new UpdateProductCommand
             {
                 Name = "product1",
@@ -288,7 +288,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
 
             var product = new Domain.Entities.Product { Name = "product1", Description = "Product7 description", ItemId = 1 };
 
-            _productRepository.Setup(m => m.UpdateAsync(It.IsAny<Domain.Entities.Product>()) ).ReturnsAsync(product);
+            _productRepository.Setup(m => m.UpdateAsync(It.IsAny<Domain.Entities.Product>())).ReturnsAsync(product);
 
             var updateValidator = new UpdateProductCommandValidation(_productRepository.Object);
             var handler = new UpdateProductCommandHandler(_productRepository.Object, _mapper, updateValidator);
@@ -349,7 +349,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
 
             _productRepository.Setup(m => m.DeleteAsync(It.Is<Domain.Entities.Product>(p => p.ItemId > 0)))
                 .Callback<Domain.Entities.Product>((p) => products.Remove(p));
-           
+
 
             var handler = new DeleteProductCommandHandler(_mapper, _productRepository.Object);
 
@@ -359,7 +359,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
             await handler.Handle(command, new CancellationToken());
             _productRepository.Verify(e => e.DeleteAsync(It.IsAny<Domain.Entities.Product>()), Times.Once);
 
-            var  newList = await queryHandler.Handle(query, new CancellationToken());
+            var newList = await queryHandler.Handle(query, new CancellationToken());
             //Assert
             Assert.DoesNotContain(newList, e => e.ProductId == addedProduct.ItemId);
         }

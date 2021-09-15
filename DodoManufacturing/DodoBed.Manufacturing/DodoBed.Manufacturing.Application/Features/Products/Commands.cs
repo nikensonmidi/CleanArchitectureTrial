@@ -2,21 +2,18 @@
 using DodoBed.Manufacturing.Application.Interfaces.Persistence;
 using DodoBed.Manufacturing.Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 
 namespace DodoBed.Manufacturing.Application.Features.Products
 {
-    public class CreateProductCommand: ProductDTO,IRequest<long>
+    public class CreateProductCommand : ProductDTO, IRequest<long>
     {
     }
 
-   public  class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, long>
+    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, long>
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
@@ -34,13 +31,13 @@ namespace DodoBed.Manufacturing.Application.Features.Products
             if (request == null) { throw new ValidationException("request cannot be null"); }
             request = await request.AsValid(_validator);
             var product = _mapper.Map<Product>(request);
-         
-            var response =  await _productRepository.AddAsync(product);
+
+            var response = await _productRepository.AddAsync(product);
             return response.ItemId;
         }
     }
 
-    public class UpdateProductCommand:ProductDTO, IRequest<UpdateProductCommand>
+    public class UpdateProductCommand : ProductDTO, IRequest<UpdateProductCommand>
     {
 
     }
@@ -58,19 +55,19 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
         public async Task<UpdateProductCommand> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
-            if(request  == null) { throw new ValidationException("request cannot be null"); }
+            if (request == null) { throw new ValidationException("request cannot be null"); }
             request = await request.AsValid(_validator);
             var updatedProduct = _mapper.Map<Product>(request);
-       
-            var product = await  _productRepository.UpdateAsync(updatedProduct);
+
+            var product = await _productRepository.UpdateAsync(updatedProduct);
             _mapper.Map(product, request, typeof(Product), typeof(UpdateProductCommand));
             return request;
         }
     }
 
-    public class DeleteProductCommand: ProductDTO, IRequest
+    public class DeleteProductCommand : ProductDTO, IRequest
     {
-      
+
     }
     public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand>
     {
@@ -83,11 +80,11 @@ namespace DodoBed.Manufacturing.Application.Features.Products
             _productRepository = productRepository;
         }
 
-        public async  Task<Unit> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
             if (request == null) { throw new ValidationException("request cannot be null"); }
             var deletedProduct = _productRepository.GetAll().FirstOrDefault(e => e.ItemId == request.ProductId);
-            if(deletedProduct == null) { throw new ValidationException("Unable to locate product"); }
+            if (deletedProduct == null) { throw new ValidationException("Unable to locate product"); }
             await _productRepository.DeleteAsync(deletedProduct);
             return Unit.Value;
         }
