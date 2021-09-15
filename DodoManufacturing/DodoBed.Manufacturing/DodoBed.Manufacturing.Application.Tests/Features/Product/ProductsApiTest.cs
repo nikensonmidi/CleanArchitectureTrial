@@ -234,19 +234,21 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
         {
             //Arrange
 
-
-            _mediator.Setup(m => m.Send(It.IsAny<UpdateProductCommand>(), new CancellationToken()));
             var command = new UpdateProductCommand
             {
                 Name = "product1",
                 Description = "Product1 description",
-                ProductId = 1
+                ProductId = 0
             };
-            var controller = new ProductController(_mediator.Object);
+            var product = new Domain.Entities.Product { Name = "product1", Description = "Product1 description", ItemId = 0 };
+
+            _productRepository.Setup(m => m.UpdateAsync(It.IsAny<Domain.Entities.Product>())).ReturnsAsync(product);
+
+            var updateValidator = new UpdateProductCommandValidation(_productRepository.Object);
+            var handler = new UpdateProductCommandHandler(_productRepository.Object, _mapper, updateValidator);
             //Act
-            var response = await controller.Put(command.ProductId, null);
-            //Assert
-            Assert.IsType<BadRequestObjectResult>(response);
+
+            await Assert.ThrowsAnyAsync<ValidationException>(async () => await handler.Handle(command, new CancellationToken()));
 
         }
         [Fact]
@@ -255,18 +257,22 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
             //Arrange
 
 
-            _mediator.Setup(m => m.Send(It.IsAny<UpdateProductCommand>(), new CancellationToken()));
+           
             var command = new UpdateProductCommand
             {
                 Name = "product1",
                 Description = "Product1 description",
                 ProductId = 0
             };
-            var controller = new ProductController(_mediator.Object);
+            var product = new Domain.Entities.Product { Name = "product1", Description = "Product1 description", ItemId = 0 };
+
+            _productRepository.Setup(m => m.UpdateAsync(It.IsAny<Domain.Entities.Product>())).ReturnsAsync(product);
+
+            var updateValidator = new UpdateProductCommandValidation(_productRepository.Object);
+            var handler = new UpdateProductCommandHandler(_productRepository.Object, _mapper, updateValidator);
             //Act
-            var response = await controller.Put(command.ProductId, command);
-            //Assert
-            Assert.IsType<BadRequestObjectResult>(response);
+
+            await Assert.ThrowsAnyAsync<ValidationException>(async () => await handler.Handle(command, new CancellationToken()));
 
         }
         [Fact]
@@ -288,7 +294,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
             var handler = new UpdateProductCommandHandler(_productRepository.Object, _mapper, updateValidator);
 
             Assert.False(command.Description.Equals(product.Description, System.StringComparison.OrdinalIgnoreCase));
-            var respone = await handler.Handle(command, new CancellationToken());
+            var response = await handler.Handle(command, new CancellationToken());
             //Act
             Assert.True(command.Description.Equals(product.Description, System.StringComparison.OrdinalIgnoreCase));
             Assert.True(command.ProductId == product.ItemId);

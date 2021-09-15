@@ -31,6 +31,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
         public async Task<long> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
+            if (request == null) { throw new ValidationException("request cannot be null"); }
             request = await request.AsValid(_validator);
             var product = _mapper.Map<Product>(request);
          
@@ -57,6 +58,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
         public async Task<UpdateProductCommand> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
+            if(request  == null) { throw new ValidationException("request cannot be null"); }
             request = await request.AsValid(_validator);
             var updatedProduct = _mapper.Map<Product>(request);
        
@@ -83,7 +85,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
         public async  Task<Unit> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
-
+            if (request == null) { throw new ValidationException("request cannot be null"); }
             var deletedProduct = _productRepository.GetAll().FirstOrDefault(e => e.ItemId == request.ProductId);
             if(deletedProduct == null) { throw new BadRequestException("Unable to locate product"); }
             await _productRepository.DeleteAsync(deletedProduct);
