@@ -186,7 +186,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
 
         }
         [Fact]
-        public async Task Should_Not_Add_Product_with_Existing_NameOrDescription_With_Space()
+        public async Task Should_Not_Add_Product_with_Existing_NameOrDescription_Regardless_Space()
         {
             //Arrange
             var command = new CreateProductCommand

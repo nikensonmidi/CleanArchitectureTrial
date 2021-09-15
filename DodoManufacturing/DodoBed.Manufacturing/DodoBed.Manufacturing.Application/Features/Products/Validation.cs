@@ -48,6 +48,8 @@ namespace DodoBed.Manufacturing.Application.Features.Products
             RuleFor(e => e.Description)
               .NotEmpty().WithMessage("{PropertyName} cannot be empty")
               .NotNull();
+            RuleFor(e => e.ProductId)
+                .GreaterThan(0).WithMessage("{PropertyName} cannot be less than 0");
              
             RuleFor(e => e)
             .MustAsync(UniqueDescription).WithMessage("The description {PropertyValue} already exists.")
@@ -83,6 +85,8 @@ namespace DodoBed.Manufacturing.Application.Features.Products
                 .NotNull()
                 .MustAsync(UniqueName).WithMessage("That name already exist")
                 .MaximumLength(100).WithMessage("{PropertyName} cannot be longer than 100 characters");
+            RuleFor(e => e.ProductId)
+            .GreaterThan(0).WithMessage("{PropertyName} cannot be less than 0");
         }
 
         private async Task<bool> UniqueName(string name, CancellationToken token)
