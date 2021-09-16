@@ -337,6 +337,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
 
             };
             var addedProduct = products.First();
+            
 
             _productRepository.Setup(m => m.GetAll()).Returns(products);
 
