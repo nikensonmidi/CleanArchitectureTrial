@@ -39,6 +39,7 @@ namespace Products
             }
             catch (Exception ex)
             {
+                //Log exception with Serilog
                await  ConvertExceptiopn(ex,context);
             }
 
@@ -60,8 +61,7 @@ namespace Products
                     statusCode = HttpStatusCode.BadRequest;                 
                     break;
                 case NotFoundException validationEx:
-                    statusCode = HttpStatusCode.NotFound;
-                   
+                    statusCode = HttpStatusCode.NotFound;                   
                     break;
                 default:
                     result = ex.Message;

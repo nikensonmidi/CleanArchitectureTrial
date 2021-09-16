@@ -110,6 +110,16 @@ namespace BenchMarks.Applicatrion
             _products = tempList;
             _queriedProducts = tempList.AsQueryable();
         }
+
+        public Task<bool> IsNameUnique(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> IsDescriptionUnique(string description)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 

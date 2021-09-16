@@ -46,7 +46,7 @@ namespace DodoBed.Manufacturing.SqlPersistence
 
         public IEnumerable<T> GetAll()
         {
-            return _dbContext.Set<T>().AsQueryable();
+            return _dbContext.Set<T>().AsEnumerable();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
@@ -78,6 +78,15 @@ namespace DodoBed.Manufacturing.SqlPersistence
             _dbContext = dbContext;
         }
 
-       
+        public async  Task<bool> IsDescriptionUnique(string description)
+        {
+            return _dbContext.Products.Any(e => e.Description.Trim().ToLower() == description.Trim().ToLower());
+
+        }
+
+        public async  Task<bool> IsNameUnique(string name)
+        {
+            return _dbContext.Products.Any(e => e.Name.Trim().ToLower() == e.Name.Trim().ToLower());
+        }
     }
 }

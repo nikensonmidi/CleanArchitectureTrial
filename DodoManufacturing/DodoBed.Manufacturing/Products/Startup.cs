@@ -1,20 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.AspNetCore.OData;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DodoBed.Manufacturing.Application;
-using Microsoft.AspNetCore.OData;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
+using Microsoft.OpenApi.Models;
+using System.Linq;
 
 namespace Products
 {
@@ -33,8 +26,8 @@ namespace Products
             services.AddSqlPersistence(Configuration);
             services.AddApplicationServices();
 
-            services.AddControllers().AddOData(opt => opt.AddRouteComponents("odata",new ProductEntityDataModel().GetEdmModel()));
-            
+            services.AddControllers().AddOData(opt => opt.AddRouteComponents("odata", new ProductEntityDataModel().GetEdmModel()));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Products", Version = "v1" });
@@ -69,7 +62,7 @@ namespace Products
             }
 
             app.UseHttpsRedirection();
-           
+
             app.UseRouting();
 
             app.UseAuthorization();

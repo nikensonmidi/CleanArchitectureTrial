@@ -15,8 +15,10 @@ namespace DodoBed.Manufacturing.Application
         {
             CreateMap<Product, ProductDTO>()
                 .ForMember(dest => dest.ProductId,
-                opt => opt.MapFrom(src => src.ItemId)).ReverseMap();
+                opt => opt.MapFrom(src => src.ItemId))              
+                .ReverseMap();
             CreateMap<ProductDTO, UpdateProductCommand>().ReverseMap();
+            CreateMap<Product, CreateProductCommand>().ReverseMap();
           
         }
     }

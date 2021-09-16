@@ -4,14 +4,16 @@ using DodoBed.Manufacturing.SqlPersistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DodoBed.Manufacturing.SqlPersistence.Migrations
 {
     [DbContext(typeof(DodoBedManufacturingContext))]
-    partial class DodoBedManufacturingContextModelSnapshot : ModelSnapshot
+    [Migration("20210910215921_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -345,9 +347,6 @@ namespace DodoBed.Manufacturing.SqlPersistence.Migrations
                     b.Property<long?>("AssemblyItemId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("ManufacturedProductAssemblyId1")
-                        .HasColumnType("bigint");
-
                     b.Property<int?>("ManufacturedProductId")
                         .HasColumnType("int");
 
@@ -357,8 +356,6 @@ namespace DodoBed.Manufacturing.SqlPersistence.Migrations
                     b.HasKey("ManufacturedProductAssemblyId");
 
                     b.HasIndex("AssemblyItemId");
-
-                    b.HasIndex("ManufacturedProductAssemblyId1");
 
                     b.HasIndex("ManufacturedProductId");
 
@@ -571,9 +568,6 @@ namespace DodoBed.Manufacturing.SqlPersistence.Migrations
                     b.Property<int?>("ManufacturingShopProcessorId")
                         .HasColumnType("int");
 
-                    b.Property<long?>("ProductItemId")
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("ProductionCapacityId")
                         .HasColumnType("bigint");
 
@@ -585,8 +579,6 @@ namespace DodoBed.Manufacturing.SqlPersistence.Migrations
                     b.HasIndex("AuthorEmployeeId");
 
                     b.HasIndex("ManufacturingShopProcessorId");
-
-                    b.HasIndex("ProductItemId");
 
                     b.HasIndex("ProductionCapacityId");
 
@@ -661,7 +653,7 @@ namespace DodoBed.Manufacturing.SqlPersistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 13, 8, 10, 5, 824, DateTimeKind.Local).AddTicks(7962));
+                        .HasDefaultValue(new DateTime(2021, 9, 10, 17, 59, 20, 752, DateTimeKind.Local).AddTicks(7627));
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -675,9 +667,12 @@ namespace DodoBed.Manufacturing.SqlPersistence.Migrations
                     b.Property<DateTime?>("LastModifiedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 13, 8, 10, 5, 839, DateTimeKind.Local).AddTicks(1387));
+                        .HasDefaultValue(new DateTime(2021, 9, 10, 17, 59, 20, 765, DateTimeKind.Local).AddTicks(3734));
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("PorductPricePriceId")
@@ -885,7 +880,7 @@ namespace DodoBed.Manufacturing.SqlPersistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 13, 8, 10, 5, 847, DateTimeKind.Local).AddTicks(4918));
+                        .HasDefaultValue(new DateTime(2021, 9, 10, 17, 59, 20, 774, DateTimeKind.Local).AddTicks(3602));
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -896,7 +891,7 @@ namespace DodoBed.Manufacturing.SqlPersistence.Migrations
                     b.Property<DateTime?>("LastModifiedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 9, 13, 8, 10, 5, 847, DateTimeKind.Local).AddTicks(5932));
+                        .HasDefaultValue(new DateTime(2021, 9, 10, 17, 59, 20, 774, DateTimeKind.Local).AddTicks(4778));
 
                     b.Property<string>("ManufacturerId")
                         .HasColumnType("nvarchar(max)");
@@ -1003,10 +998,6 @@ namespace DodoBed.Manufacturing.SqlPersistence.Migrations
                         .WithMany()
                         .HasForeignKey("AssemblyItemId");
 
-                    b.HasOne("DodoBed.Manufacturing.Domain.Entities.ManufacturedProductAssembly", null)
-                        .WithMany("ProductComponents")
-                        .HasForeignKey("ManufacturedProductAssemblyId1");
-
                     b.HasOne("DodoBed.Manufacturing.Domain.Entities.ManufacturedProduct", null)
                         .WithMany("ProductComponents")
                         .HasForeignKey("ManufacturedProductId");
@@ -1089,10 +1080,6 @@ namespace DodoBed.Manufacturing.SqlPersistence.Migrations
                     b.HasOne("DodoBed.Manufacturing.Domain.Entities.ManufacturingShopProcessor", null)
                         .WithMany("Instructions")
                         .HasForeignKey("ManufacturingShopProcessorId");
-
-                    b.HasOne("DodoBed.Manufacturing.Domain.Entities.Product", null)
-                        .WithMany("Notes")
-                        .HasForeignKey("ProductItemId");
 
                     b.HasOne("DodoBed.Manufacturing.Domain.Entities.ProductionCapacity", null)
                         .WithMany("Notes")
@@ -1226,11 +1213,6 @@ namespace DodoBed.Manufacturing.SqlPersistence.Migrations
                     b.Navigation("ProductShops");
                 });
 
-            modelBuilder.Entity("DodoBed.Manufacturing.Domain.Entities.ManufacturedProductAssembly", b =>
-                {
-                    b.Navigation("ProductComponents");
-                });
-
             modelBuilder.Entity("DodoBed.Manufacturing.Domain.Entities.ManufacturingShop", b =>
                 {
                     b.Navigation("Employees");
@@ -1257,8 +1239,6 @@ namespace DodoBed.Manufacturing.SqlPersistence.Migrations
 
             modelBuilder.Entity("DodoBed.Manufacturing.Domain.Entities.Product", b =>
                 {
-                    b.Navigation("Notes");
-
                     b.Navigation("Suppliers");
                 });
 
