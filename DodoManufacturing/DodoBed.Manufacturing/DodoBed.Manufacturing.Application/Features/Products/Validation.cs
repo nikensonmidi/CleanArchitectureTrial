@@ -117,7 +117,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
             _productRepository = productRepository;
 
             RuleFor(e => e.ProductId)
-                .MustAsync(Exist).WithMessage("Unable to locate product.")
+                .MustAsync(Exist).WithMessage("Unable to find product")
             .GreaterThan(0).WithMessage("{PropertyName} cannot be less than 0");
            
         }
