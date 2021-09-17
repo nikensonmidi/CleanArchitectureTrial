@@ -16,7 +16,7 @@ namespace Products
 
         public ProductController(IMediator mediatr)
         {
-            _mediatr = mediatr ;
+            _mediatr = mediatr;
         }
 
 
