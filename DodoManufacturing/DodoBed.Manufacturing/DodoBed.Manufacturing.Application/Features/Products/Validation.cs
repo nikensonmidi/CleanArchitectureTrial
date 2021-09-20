@@ -20,31 +20,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
             return request;
         }
-        //public static async Task<CreateProductCommand> AsValid(this CreateProductCommand request, CreateProductCommandValidation validator)
-        //{
-          
-        //    var validation = await validator.ValidateAsync(request);
-        //    if (validation.Errors.Count > 0) { throw new ValidationException(validation.Errors); }
-
-        //    return request;
-        //}
-        //public static async Task<UpdateProductCommand> AsValid(this UpdateProductCommand request, UpdateProductCommandValidation validator)
-        //{
-
-        //    var validation = await validator.ValidateAsync(request);
-        //    if (validation.Errors.Count > 0) { throw new ValidationException(validation.Errors); }
-
-        //    return request;
-        //}
-        //public static async Task<DeleteProductCommand> AsValid(this DeleteProductCommand request, DeleteProductCommandValidation validator)
-        //{
-
-        //    var validation = await validator.ValidateAsync(request);
-        //    if (validation.Errors.Count > 0) { throw new ValidationException(validation.Errors); }
-
-        //    return request;
-        //}
-
+    
 
     }
     [ScopedService]
