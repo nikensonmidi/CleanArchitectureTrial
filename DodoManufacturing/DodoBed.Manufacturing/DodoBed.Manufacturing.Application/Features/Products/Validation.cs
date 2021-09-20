@@ -12,31 +12,38 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 {
     public static class ProductCommandValidator
     {
-
-        public static async Task<CreateProductCommand> AsValid(this CreateProductCommand request, CreateProductCommandValidation validator)
+        public static async Task<T> AsValid<T,U>(this T request, U validator) where T: new() where U: AbstractValidator<T>
         {
+
+            var validation = await validator.ValidateAsync(request);
+            if (validation.Errors.Count > 0) { throw new ValidationException(validation.Errors); }
+
+            return request;
+        }
+        //public static async Task<CreateProductCommand> AsValid(this CreateProductCommand request, CreateProductCommandValidation validator)
+        //{
           
-            var validation = await validator.ValidateAsync(request);
-            if (validation.Errors.Count > 0) { throw new ValidationException(validation.Errors); }
+        //    var validation = await validator.ValidateAsync(request);
+        //    if (validation.Errors.Count > 0) { throw new ValidationException(validation.Errors); }
 
-            return request;
-        }
-        public static async Task<UpdateProductCommand> AsValid(this UpdateProductCommand request, UpdateProductCommandValidation validator)
-        {
+        //    return request;
+        //}
+        //public static async Task<UpdateProductCommand> AsValid(this UpdateProductCommand request, UpdateProductCommandValidation validator)
+        //{
 
-            var validation = await validator.ValidateAsync(request);
-            if (validation.Errors.Count > 0) { throw new ValidationException(validation.Errors); }
+        //    var validation = await validator.ValidateAsync(request);
+        //    if (validation.Errors.Count > 0) { throw new ValidationException(validation.Errors); }
 
-            return request;
-        }
-        public static async Task<DeleteProductCommand> AsValid(this DeleteProductCommand request, DeleteProductCommandValidation validator)
-        {
+        //    return request;
+        //}
+        //public static async Task<DeleteProductCommand> AsValid(this DeleteProductCommand request, DeleteProductCommandValidation validator)
+        //{
 
-            var validation = await validator.ValidateAsync(request);
-            if (validation.Errors.Count > 0) { throw new ValidationException(validation.Errors); }
+        //    var validation = await validator.ValidateAsync(request);
+        //    if (validation.Errors.Count > 0) { throw new ValidationException(validation.Errors); }
 
-            return request;
-        }
+        //    return request;
+        //}
 
 
     }
