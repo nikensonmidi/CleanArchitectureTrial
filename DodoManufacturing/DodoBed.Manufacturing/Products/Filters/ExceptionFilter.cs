@@ -3,11 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace Products.Filters
 {
@@ -21,14 +16,14 @@ namespace Products.Filters
 
         public void ConvertExceptiopn(ExceptionContext ex)
         {
-       
+
             string result = string.Empty;
             switch (ex.Exception)
             {
                 case ValidationException validationEx:
                     result = JsonConvert.SerializeObject(validationEx.ValidationErrors);
                     ex.Result = new BadRequestObjectResult(result);
-                  
+
                     break;
                 case BadRequestException validationEx:
                     ex.Result = new BadRequestObjectResult(400);
@@ -40,8 +35,8 @@ namespace Products.Filters
                     ex.Result = new StatusCodeResult(500);
                     break;
             }
-          
-          
+
+
         }
     }
 }
