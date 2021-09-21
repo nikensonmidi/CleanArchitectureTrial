@@ -10,6 +10,7 @@ using DodoBed.Manufacturing.Application.Interfaces.Persistence;
 
 namespace BenchMarks
 {
+    //Need to run benchmark in Release
     class Program
     {
         static void Main(string[] args)

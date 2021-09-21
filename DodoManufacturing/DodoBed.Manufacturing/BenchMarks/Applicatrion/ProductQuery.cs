@@ -4,6 +4,7 @@ using DodoBed.Manufacturing.Application.Features.Products;
 using DodoBed.Manufacturing.Application.Interfaces.Persistence;
 using DodoBed.Manufacturing.Domain.Entities;
 using MediatR;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,114 +16,56 @@ namespace BenchMarks.Applicatrion
     [MemoryDiagnoser]
     public class ProductQuery
     {
-        private readonly ProductRepoMock _productRepo;
+        private readonly Mock<IProductRepository> _productRepo;
         public ProductQuery( )
         {
-            _productRepo = new ProductRepoMock(10000);
+            _productRepo = new Mock<IProductRepository>();
+            _productRepo.Setup(e => e.GetAll()).Returns(GenerateProducts(100));
         }
         [Benchmark(Baseline =true)]
         public async Task GetProductQueryStats( )
         {
-            var products = _productRepo.GetAll();
+            var products = _productRepo.Object.GetAll();
         }
 
         [Benchmark]
         public async Task GetProductsLambda()
         {
       
-            var products =_productRepo.GetAll();
+            var products = _productRepo.Object.GetAll();
             products= products.Where(e => e.ItemId > 1);
         }
         [Benchmark]
         public async Task GetProductsQuery()
         {
-            var products = from p in _productRepo.GetAll()
+            var products = from p in _productRepo.Object.GetAll()
                            where p.ItemId > 1
                            select p;
                            
 
 
         }
-    }
 
-    public class ProductRepoMock : IProductRepository
-    {
-        private IEnumerable<Product> _products;
-        private IQueryable<Product> _queriedProducts;
-        public ProductRepoMock()
+        private IEnumerable<Product> GenerateProducts(int iteration)
         {
-            SetMockdata();
-        }
-        public ProductRepoMock(int iterations)
-        {
-            SetMockdata(iterations);
-        }
-        public Product Add(Product entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Product> AddAsync(Product entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Product entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteAsync(Product entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Product> GetAll()
-            => _products;
-        public IQueryable<Product> GetAllQueryable()
-           => _queriedProducts;
-
-
-
-        public Task<IEnumerable<Product>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Product Update(Product entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Product> UpdateAsync(Product entity)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public void SetMockdata(int length = 100 )
-        {
-            var tempList = new List<Product>();
-            for (int i = 0; i < length; i++)
+            List<Product> p = new List<Product>();
+            for (int i = 0; i < iteration; i++)
             {
-                tempList.Add(new Product { ItemId = i, Name = $"item{1}", Description = $"descrtion item{i}" });
+
+                p.Add(new Product
+                {
+                    Name="product "+i,
+                    Description ="Product despcription "+i,
+                    ItemId = i
+                });
             }
-            _products = tempList;
-            _queriedProducts = tempList.AsQueryable();
+            return p;
         }
 
-        public Task<bool> IsNameUnique(string name)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<bool> IsDescriptionUnique(string description)
-        {
-            throw new NotImplementedException();
-        }
+
+
     }
-
-
 
 
 }
