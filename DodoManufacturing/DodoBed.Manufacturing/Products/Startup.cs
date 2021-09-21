@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
+using Products.Filters;
 using System.Linq;
 
 namespace Products
@@ -37,7 +38,7 @@ namespace Products
             // In order to make swagger work with OData
             services.AddMvcCore(options =>
             {
-
+                options.Filters.Add(typeof(ApplicationExceptionFilter));
                 foreach (var outputFormatter in options.OutputFormatters.OfType<OutputFormatter>().Where(x => x.SupportedMediaTypes.Count == 0))
                 {
                     //Microsoft.AspNetCore.Mvc.Formatters => MediaTypeHeaderValue
@@ -66,7 +67,7 @@ namespace Products
             app.UseRouting();
 
             app.UseAuthorization();
-            app.UseCustomExceptionHandler();
+          //  app.UseCustomExceptionHandler();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
