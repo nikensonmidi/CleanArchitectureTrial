@@ -37,25 +37,25 @@ namespace Products
         [HttpPost("AddProducts")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post([FromBody] CreateProductsCommand createCommand) => Ok(await _mediatr.Send(createCommand));
+        public async Task<IActionResult> AddProducts([FromBody] CreateProductsCommand createCommand) => Ok(await _mediatr.Send(createCommand));
 
 
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Put(long id, [FromBody] UpdateProductCommand updateCommand) => Ok(await _mediatr.Send(updateCommand));
-        [HttpPut]
+        [HttpPut("UpdateProducts")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Put( [FromBody] UpdateProductsCommand updateCommand) => Ok(await _mediatr.Send(updateCommand));
+        public async Task<IActionResult> UpdateProducts( [FromBody] UpdateProductsCommand updateCommand) => Ok(await _mediatr.Send(updateCommand));
 
 
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Delete(long id)=> Ok(await _mediatr.Send(new DeleteProductCommand { ProductId = id }));
-        [HttpDelete]
+        [HttpDelete("DeleteProducts")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Delete([FromBody] DeleteProductsCommand deleteProductsCommand) => Ok(await _mediatr.Send(deleteProductsCommand));
+        public async Task<IActionResult> DeleteProducts([FromBody] DeleteProductsCommand deleteProductsCommand) => Ok(await _mediatr.Send(deleteProductsCommand));
 
     }
 }
