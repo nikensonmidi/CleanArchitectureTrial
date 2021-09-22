@@ -412,7 +412,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
 
             var controller = new ProductController(_mediator.Object);
             //Act
-            var response = await controller.Post(createCommand);
+            var response = await controller.AddProducts(createCommand);
             //Assert
             Assert.IsType<OkObjectResult>(response);
 
