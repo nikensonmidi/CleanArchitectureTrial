@@ -392,5 +392,73 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
             await Assert.ThrowsAnyAsync<ValidationException>(async () => await handler.Handle(command, new CancellationToken()));
         }
 
+
+        [Fact]
+        public async Task Should_Return_OK_For_Adding_Multiple_Products( )
+        {
+            //Arrange
+
+            ICollection<CreateProductCommand> commands = new List<CreateProductCommand>
+            {
+              new CreateProductCommand{ Name = "Product1", Description="Product 1 description"},
+              new CreateProductCommand{ Name = "Product2", Description="Product 2 description"},
+            };
+            var createCommand = new CreateProductsCommand
+            {
+                ProductCommands = commands
+            };
+           
+            _mediator.Setup(m => m.Send(It.IsAny<CreateProductsCommand>(), new CancellationToken())).ReturnsAsync(new List<long> {1,2 });
+
+            var controller = new ProductController(_mediator.Object);
+            //Act
+            var response = await controller.Post(createCommand);
+            //Assert
+            Assert.IsType<OkObjectResult>(response);
+
+        }
+        [Fact]
+        public async Task Should_Add_Multiple_Products()
+        {
+            //Arrange
+            var command = new CreateProductsCommand
+            {
+                ProductCommands = new List<CreateProductCommand>
+                {
+                    new CreateProductCommand{Name = "product3", Description = "Product3 description" },
+                    new CreateProductCommand{Name = "product4", Description = "Product4 description" }
+                }
+            };
+           
+            _mediator.SetupSequence(e => e.Send(It.IsAny<CreateProductCommand>(), new CancellationToken())).ReturnsAsync(1).ReturnsAsync(2);
+            var handler = new CreateProductsCommandHandler(_mediator.Object);
+
+            var repsonse = await handler.Handle(command, new CancellationToken());
+            Assert.Collection(repsonse, p => Assert.Equal(1, p),
+                                          p => Assert.Equal(2, p));
+
+        }
+        [Fact]
+        public async Task Should_Throw_ValidationException_When_Adding_Multiple_Products()
+        {
+            //Arrange
+            var command = new CreateProductsCommand
+            {
+                ProductCommands = new List<CreateProductCommand>
+                {
+                    new CreateProductCommand{Name = "", Description = "Product3 description" },
+                    new CreateProductCommand{Name = "product4", Description = "Product4 description" }
+                }
+            };
+
+            _mediator.SetupSequence(e => e.Send(It.IsAny<CreateProductCommand>(), new CancellationToken())).ThrowsAsync(new ValidationException("Name cannot be emptied")).ReturnsAsync(2);
+            var handler = new CreateProductsCommandHandler(_mediator.Object);
+
+            //Assert 
+            await Assert.ThrowsAsync<ValidationException>(async () => await handler.Handle(command, new CancellationToken()));
+           
+        }
+
+
     }
 }
