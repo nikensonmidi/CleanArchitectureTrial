@@ -487,6 +487,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
                                        p => Assert.Equal(second.ProductId, p.ProductId));
 
         }
+
        
 
 

@@ -111,6 +111,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
         public async  Task<IEnumerable<UpdateProductCommand>> Handle(UpdateProductsCommand request, CancellationToken cancellationToken)
         {
+            if (request == null) { throw new ValidationException("request cannot be null"); }
             List<UpdateProductCommand> commands = new List<UpdateProductCommand>();
             foreach (var command in request.UpdateCommands)
             {
@@ -144,6 +145,30 @@ namespace DodoBed.Manufacturing.Application.Features.Products
             request = await request.AsValid(_validator);
             var deletedProduct = _productRepository.GetAll().FirstOrDefault(e => e.ItemId == request.ProductId);
             await _productRepository.DeleteAsync(deletedProduct);
+            return Unit.Value;
+        }
+    }
+
+    public class DeleteProductsCommand:IRequest
+    {
+        public IEnumerable<DeleteProductCommand> DeleteProductCommands { get; set; }
+    }
+    public class DeleteProductsCommandHandler : IRequestHandler<DeleteProductsCommand>
+    {
+        private readonly IMediator _mediator;
+
+        public DeleteProductsCommandHandler(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        public async Task<Unit> Handle(DeleteProductsCommand request, CancellationToken cancellationToken)
+        {
+            if (request == null) { throw new ValidationException("request cannot be null"); }
+            foreach (var deleteCommand in request.DeleteProductCommands)
+            {
+                await _mediator.Send(deleteCommand);
+            }
             return Unit.Value;
         }
     }

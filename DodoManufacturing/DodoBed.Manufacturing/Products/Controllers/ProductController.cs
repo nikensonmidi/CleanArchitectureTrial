@@ -44,7 +44,7 @@ namespace Products
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Put(long id, [FromBody] UpdateProductCommand updateCommand) => Ok(await _mediatr.Send(updateCommand));
-        [HttpPut("{id}")]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Put( [FromBody] UpdateProductsCommand updateCommand) => Ok(await _mediatr.Send(updateCommand));
 
@@ -53,6 +53,9 @@ namespace Products
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Delete(long id)=> Ok(await _mediatr.Send(new DeleteProductCommand { ProductId = id }));
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Delete([FromBody] DeleteProductsCommand deleteProductsCommand) => Ok(await _mediatr.Send(deleteProductsCommand));
 
     }
 }
