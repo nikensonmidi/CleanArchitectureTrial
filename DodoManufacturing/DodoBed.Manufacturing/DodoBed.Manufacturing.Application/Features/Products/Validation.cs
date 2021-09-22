@@ -57,6 +57,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
             return !_productRepository.GetAll().Any(p => p.ItemId != e.ProductId && p.Description.Trim().ToLower() == e.Description.Trim().ToLower());
         }
     }
+
     [ScopedService]
     public class CreateProductCommandValidation : AbstractValidator<CreateProductCommand>
     {
@@ -89,6 +90,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
             return ! _productRepository.GetAll().Any(p => p.Description.Trim().ToLower() == desc.Trim().ToLower());
         }
     }
+    
     [ScopedService]
     public class DeleteProductCommandValidation : AbstractValidator<DeleteProductCommand>
     {
@@ -113,4 +115,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
       
     }
+
+
+
 }

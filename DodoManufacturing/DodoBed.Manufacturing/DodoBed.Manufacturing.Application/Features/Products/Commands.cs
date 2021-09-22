@@ -2,6 +2,7 @@
 using DodoBed.Manufacturing.Application.Interfaces.Persistence;
 using DodoBed.Manufacturing.Domain.Entities;
 using MediatR;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,6 +37,38 @@ namespace DodoBed.Manufacturing.Application.Features.Products
             return response.ItemId;
         }
     }
+    public class CreateProductsCommand:IRequest<IEnumerable<long>>
+    {
+        public ICollection<CreateProductCommand> ProductCommands { get; set; }
+    }
+    public class CreateProductsCommandHandler : IRequestHandler<CreateProductsCommand, IEnumerable<long>>
+    {
+        private readonly IProductRepository _productRepository;
+        private readonly IMapper _mapper;
+        private readonly CreateProductCommandValidation _validator;
+
+        public CreateProductsCommandHandler(IProductRepository productRepository, IMapper mapper, CreateProductCommandValidation validator)
+        {
+            _productRepository = productRepository;
+            _mapper = mapper;
+            _validator = validator;
+        }
+
+        public async  Task<IEnumerable<long>> Handle(CreateProductsCommand request, CancellationToken cancellationToken)
+        {
+            if (request == null) { throw new ValidationException("request cannot be null"); }
+            List<long> newIds = new List<long>();
+            foreach (var command in request.ProductCommands)
+            {
+              var product = _mapper.Map<Product>(await command.AsValid(_validator));
+                var savedProduct = await _productRepository.AddAsync(product);
+                newIds.Add(savedProduct.ItemId);
+            }
+            return newIds;
+
+        }
+    }
+
 
     public class UpdateProductCommand : ProductDTO, IRequest<UpdateProductCommand>
     {
