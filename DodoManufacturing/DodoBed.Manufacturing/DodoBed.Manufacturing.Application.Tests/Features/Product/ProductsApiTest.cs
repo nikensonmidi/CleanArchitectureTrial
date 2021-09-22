@@ -459,6 +459,36 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
            
         }
 
+        [Fact]
+        public async Task Should_Update_Multiple_Products()
+        {
+            //Arrange
+            var first = new UpdateProductCommand { Name = "product3", Description = "Product3 description", ProductId = 1 };
+            var second = new UpdateProductCommand { Name = "product4", Description = "Product4 description", ProductId = 2 };
+
+            var command = new UpdateProductsCommand
+            {
+                UpdateCommands = new List<UpdateProductCommand>
+                {
+                    first,
+                     second
+                }
+            };
+            var updatedProduct1 = new UpdateProductCommand { Name = "productchanged", Description = "Product3 description", ProductId = 1 };
+            var updatedProduct2 = new UpdateProductCommand { Name = "product4", Description = "Product4 description changed", ProductId = 2 };
+
+            _mediator.SetupSequence(e => e.Send(It.IsAny<UpdateProductCommand>(), new CancellationToken())).ReturnsAsync(updatedProduct1).ReturnsAsync(updatedProduct2);
+            var handler = new UpdateProductsCommandHandler(_mediator.Object);
+
+            var repsonse = await handler.Handle(command, new CancellationToken());
+            Assert.Collection(repsonse, p => Assert.NotEqual(first.Name, p.Name) ,
+                                          p => Assert.NotEqual(second.Description, p.Description));
+            Assert.Collection(repsonse, p => Assert.Equal(first.ProductId, p.ProductId),
+                                       p => Assert.Equal(second.ProductId, p.ProductId));
+
+        }
+       
+
 
     }
 }

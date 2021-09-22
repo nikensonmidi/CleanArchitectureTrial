@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -43,6 +44,9 @@ namespace Products
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Put(long id, [FromBody] UpdateProductCommand updateCommand) => Ok(await _mediatr.Send(updateCommand));
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Put( [FromBody] UpdateProductsCommand updateCommand) => Ok(await _mediatr.Send(updateCommand));
 
 
 

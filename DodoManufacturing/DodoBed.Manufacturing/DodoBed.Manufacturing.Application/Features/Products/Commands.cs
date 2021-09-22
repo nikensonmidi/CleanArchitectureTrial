@@ -43,9 +43,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
     }
     public class CreateProductsCommandHandler : IRequestHandler<CreateProductsCommand, IEnumerable<long>>
     {
-        private readonly IProductRepository _productRepository;
-        private readonly IMapper _mapper;
-        private readonly CreateProductCommandValidation _validator;
+      
         private readonly IMediator _mediator;
 
         public CreateProductsCommandHandler(IMediator mediator)
@@ -53,12 +51,7 @@ namespace DodoBed.Manufacturing.Application.Features.Products
             _mediator = mediator;
         }
 
-        //public CreateProductsCommandHandler(IProductRepository productRepository, IMapper mapper, CreateProductCommandValidation validator)
-        //{
-        //    _productRepository = productRepository;
-        //    _mapper = mapper;
-        //    _validator = validator;
-        //}
+
 
         public async  Task<IEnumerable<long>> Handle(CreateProductsCommand request, CancellationToken cancellationToken)
         {
@@ -67,9 +60,6 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
             foreach (var command in request.ProductCommands)
             {
-                //var product = _mapper.Map<Product>(await command.AsValid(_validator));
-                //var savedProduct = await _productRepository.AddAsync(product);
-                //newIds.Add(savedProduct.ItemId);
                 var newId = await _mediator.Send(command);
                 newIds.Add(newId);
             }
@@ -106,7 +96,31 @@ namespace DodoBed.Manufacturing.Application.Features.Products
             return request;
         }
     }
+    public class UpdateProductsCommand:IRequest<IEnumerable<UpdateProductCommand>>
+    {
+        public IEnumerable<UpdateProductCommand> UpdateCommands { get; set; }
+    }
+    public class UpdateProductsCommandHandler : IRequestHandler<UpdateProductsCommand, IEnumerable<UpdateProductCommand>>
+    {
+        private readonly IMediator _mediator;
 
+        public UpdateProductsCommandHandler(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        public async  Task<IEnumerable<UpdateProductCommand>> Handle(UpdateProductsCommand request, CancellationToken cancellationToken)
+        {
+            List<UpdateProductCommand> commands = new List<UpdateProductCommand>();
+            foreach (var command in request.UpdateCommands)
+            {
+                var updatedProduct = await _mediator.Send(command);
+                commands.Add(updatedProduct);
+
+            }
+            return commands;
+        }
+    }
     public class DeleteProductCommand : ProductDTO, IRequest
     {
 
