@@ -41,7 +41,7 @@ namespace Products
 
 
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Put(long id, [FromBody] UpdateProductCommand updateCommand) => Ok(await _mediatr.Send(updateCommand));
         [HttpPut("UpdateProducts")]
