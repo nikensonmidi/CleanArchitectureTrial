@@ -1,11 +1,12 @@
-﻿using AutoMapper;
+﻿
 using DodoBed.Manufacturing.Application.Interfaces.Persistence;
 using DodoBed.Manufacturing.Domain.Entities;
-using MediatR;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
+using AutoMapper;
 
 
 namespace DodoBed.Manufacturing.Application.Features.Products
@@ -139,13 +140,12 @@ namespace DodoBed.Manufacturing.Application.Features.Products
             _validator = validator;
         }
 
-        public async Task<Unit> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
             if (request == null) { throw new ValidationException("request cannot be null"); }
             request = await request.AsValid(_validator);
             var deletedProduct = _productRepository.GetAll().FirstOrDefault(e => e.ItemId == request.ProductId);
             await _productRepository.DeleteAsync(deletedProduct);
-            return Unit.Value;
         }
     }
 
@@ -162,14 +162,13 @@ namespace DodoBed.Manufacturing.Application.Features.Products
             _mediator = mediator;
         }
 
-        public async Task<Unit> Handle(DeleteProductsCommand request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteProductsCommand request, CancellationToken cancellationToken)
         {
             if (request == null) { throw new ValidationException("request cannot be null"); }
             foreach (var deleteCommand in request.DeleteProductCommands)
             {
                 await _mediator.Send(deleteCommand);
             }
-            return Unit.Value;
         }
     }
 
