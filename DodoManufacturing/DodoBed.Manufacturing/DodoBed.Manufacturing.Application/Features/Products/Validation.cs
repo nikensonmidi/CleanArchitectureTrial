@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DodoBed.Manufacturing.Application.Interfaces.Persistence;
@@ -12,16 +10,19 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 {
     public static class ProductCommandValidator
     {
-        public static async Task<T> AsValid<T,U>(this T request, U validator) where T: new() where U: AbstractValidator<T>
+        public static async Task<T> AsValid<T, U>(this T request, U validator)
+            where T : new()
+            where U : AbstractValidator<T>
         {
-
             var validation = await validator.ValidateAsync(request);
-            if (validation.Errors.Count > 0) { throw new ValidationException(validation.Errors); }
+
+            if (validation.Errors.Count > 0)
+            {
+                throw new FluentValidation.ValidationException(validation.Errors);
+            }
 
             return request;
         }
-    
-
     }
     [ScopedService]
     public class UpdateProductCommandValidation:AbstractValidator<UpdateProductCommand>
@@ -115,7 +116,4 @@ namespace DodoBed.Manufacturing.Application.Features.Products
 
       
     }
-
-
-
 }

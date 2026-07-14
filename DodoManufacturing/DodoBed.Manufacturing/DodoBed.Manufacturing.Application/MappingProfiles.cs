@@ -1,11 +1,7 @@
-﻿using AutoMapper;
+﻿
 using DodoBed.Manufacturing.Application.Features.Products;
 using DodoBed.Manufacturing.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AutoMapper;
 
 namespace DodoBed.Manufacturing.Application
 {

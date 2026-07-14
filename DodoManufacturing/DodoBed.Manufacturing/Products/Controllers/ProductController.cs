@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -52,10 +51,20 @@ namespace Products
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Delete(long id)=> Ok(await _mediatr.Send(new DeleteProductCommand { ProductId = id }));
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> Delete(long id)
+        {
+            await _mediatr.Send(new DeleteProductCommand { ProductId = id });
+            return NoContent();
+        }
         [HttpDelete("DeleteProducts")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteProducts([FromBody] DeleteProductsCommand deleteProductsCommand) => Ok(await _mediatr.Send(deleteProductsCommand));
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteProducts([FromBody] DeleteProductsCommand deleteProductsCommand)
+        {
+            await _mediatr.Send(deleteProductsCommand);
+            return NoContent();
+        }
 
     }
 }

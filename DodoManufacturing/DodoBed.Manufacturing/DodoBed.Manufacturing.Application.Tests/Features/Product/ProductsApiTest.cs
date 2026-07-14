@@ -3,6 +3,7 @@ using DodoBed.Manufacturing.Application.Features.Products;
 using DodoBed.Manufacturing.Application.Interfaces.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using Products;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
             var mapconfig = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingProfile>();
-            });
+            }, NullLoggerFactory.Instance);
 
             _mapper = new Mapper(mapconfig);
 
@@ -145,7 +146,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
                 Description = "product description only"
             };
             var handler = new CreateProductCommandHandler(_productRepository.Object, _mapper, _createValidator);
-            await Assert.ThrowsAsync<ValidationException>(async () => await handler.Handle(command, new CancellationToken()));
+            await Assert.ThrowsAsync<FluentValidation.ValidationException>(async () => await handler.Handle(command, new CancellationToken()));
 
         }
         [Fact]
@@ -455,7 +456,7 @@ namespace DodoBed.Manufacturing.Application.Tests.Features.Product
             var handler = new CreateProductsCommandHandler(_mediator.Object);
 
             //Assert 
-            await Assert.ThrowsAsync<ValidationException>(async () => await handler.Handle(command, new CancellationToken()));
+            await Assert.ThrowsAsync<FluentValidation.ValidationException>(async () => await handler.Handle(command, new CancellationToken()));
            
         }
 
