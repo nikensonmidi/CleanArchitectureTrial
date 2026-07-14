@@ -21,3 +21,4 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Products.dll"]
 # dotnet dev-certs https --trust
+#http://localhost:5050/swagger
