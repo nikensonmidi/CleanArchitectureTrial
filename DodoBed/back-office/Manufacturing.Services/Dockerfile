@@ -7,10 +7,10 @@ EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
-COPY ["Products/Products.csproj", "Products/"]
-RUN dotnet restore "Products/Products.csproj"
+COPY ["Apis/Products/Products.csproj", "Apis/Products/"]
+RUN dotnet restore "Apis/Products/Products.csproj"
 COPY . .
-WORKDIR "/src/Products"
+WORKDIR "/src/Apis/Products"
 RUN dotnet build "Products.csproj" -c Release -o /app/build
 
 FROM build AS publish

@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DodoBed.Manufacturing.Application\DodoBed.Manufacturing.Application.csproj" />
-    <ProjectReference Include="..\DodoBed.Manufacturing.Domain\DodoBed.Manufacturing.Domain.csproj" />
+    <ProjectReference Include="..\..\Application\DodoBed.Manufacturing.Application\DodoBed.Manufacturing.Application.csproj" />
+    <ProjectReference Include="..\..\Domain\DodoBed.Manufacturing.Domain\DodoBed.Manufacturing.Domain.csproj" />
   </ItemGroup>
 
 </Project>
