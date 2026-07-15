@@ -6,13 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Modernized packages targeting .NET 10 -->
     <PackageReference Include="AutoMapper" Version="16.1.1" />
     <PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
     <PackageReference Include="MediatR" Version="14.2.0" />
     <PackageReference Include="Moq" Version="4.20.72" />
     
-    <!-- REMOVED: MediatR.Extensions.Microsoft.DependencyInjection (Now merged natively into MediatR v12+) -->
   </ItemGroup>
 
   <ItemGroup>
@@ -20,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DodoBed.Manufacturing.Application\DodoBed.Manufacturing.Application.csproj" />
-    <ProjectReference Include="..\DodoBed.Manufacturing.SqlPersistence\DodoBed.Manufacturing.SqlPersistence.csproj" />
+    <ProjectReference Include="..\Application\DodoBed.Manufacturing.Application\DodoBed.Manufacturing.Application.csproj" />
+    <ProjectReference Include="..\Infrastructure\DodoBed.Manufacturing.SqlPersistence\DodoBed.Manufacturing.SqlPersistence.csproj" />
   </ItemGroup>
 
 </Project>
