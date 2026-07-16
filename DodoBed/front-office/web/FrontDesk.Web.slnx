@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/Application/">
+    <Project Path="Application/FrontDesk.Application/FrontDesk.Application.csproj" />
+  </Folder>
+  <Folder Name="/Domain/">
+    <Project Path="Domain/FrontDesk.Domain/FrontDesk.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="Infrastructure/FrontDesk.Infrastructure.SqlPersistence/FrontDesk.Infrastructure.SqlPersistence.csproj" />
+  </Folder>
+  <Folder Name="/Presentation/">
+    <Project Path="Presentation/FrontDesk.Web.Mvc/FrontDesk.Web.Mvc.csproj" />
+  </Folder>
+</Solution>

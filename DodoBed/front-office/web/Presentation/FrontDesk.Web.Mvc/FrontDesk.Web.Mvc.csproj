@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\FrontDesk.Application\FrontDesk.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\FrontDesk.Infrastructure.SqlPersistence\FrontDesk.Infrastructure.SqlPersistence.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>
