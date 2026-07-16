@@ -359,11 +359,6 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
-# Fody - auto-generated XML schema
-FodyWeavers.xsd
-/GloboTicket/GloboTicket.TicketManagement.Api/Properties/launchSettings.json
-/GloboTicket/GloboTicket.TicketManagement.Api/appsettings.Development.json
-/GloboTicket/GloboTicket.TicketManagement.Api/appsettings.json
 /DodoManufacturing/DodoBed.Manufacturing/notes.js
 /DodoManufacturing/DodoBed.Manufacturing/Products/appsettings.json
 /DodoManufacturing/DodoBed.Manufacturing/Products/appsettings.Development.json
