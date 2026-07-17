@@ -1,0 +1,58 @@
+<mxfile host="app.diagrams.net" agent="Claude Code">
+  <diagram id="order-to-manufacturing-floor" name="Order to Manufacturing Floor">
+    <mxGraphModel dx="1607" dy="973" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="1150" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="fo-boundary" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;fontStyle=1;fontSize=13;fillColor=none;strokeColor=#666666;dashed=1;spacingLeft=8;spacingTop=6;" value="[ FRONT-OFFICE WEB APPLICATION BOUNDARY ]" vertex="1">
+          <mxGeometry height="380" width="860" x="20" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="sales-area" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;SalesAgent Area&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Field Sales App)&lt;/i&gt;&lt;/font&gt;&lt;hr&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;1. Rep configures 150 sets using Walnut/King options&lt;br&gt;&lt;br&gt;2. Clicks &quot;Save Draft Quote&quot; (Sends HTTP POST)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="170" width="380" x="50" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="csr-area" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;CustomerService Area&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Desktop Dashboard)&lt;/i&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="170" width="380" x="470" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="shared-db" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;Front-Office Shared Database / Cache&lt;/b&gt;&lt;br&gt;(Stores: Draft Quote #93102 | Status: Pending_CSR_Review)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="600" x="140" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-sales-to-db" edge="1" parent="1" source="sales-area" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;elbow=vertical;" target="shared-db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-db-to-csr" edge="1" parent="1" source="shared-db" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;elbow=vertical;exitX=1;exitY=0.3;entryX=1;entryY=1;fontSize=11;" target="csr-area" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;4. CSR reviews dashboard&lt;br&gt;and claims the quote&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="system-boundary" edge="1" parent="1" style="edgeStyle=none;html=1;endArrow=none;startArrow=none;dashed=1;strokeColor=#b85450;strokeWidth=2;fontStyle=1;fontColor=#b85450;fontSize=12;labelBackgroundColor=#ffffff;" value="SYSTEM BOUNDARY">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="20" y="450" as="sourcePoint" />
+            <mxPoint x="880" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-db-to-gateway" edge="1" parent="1" source="shared-db" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=11;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="gateway" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;5. CSR approves quote &amp;amp; clicks &quot;Submit Order&quot;&lt;br&gt;(Secure HTTPS API Call: /api/v1/orders/validate)&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gateway" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=center;fontStyle=1;fontSize=13;fillColor=#f5f5f5;strokeColor=#666666;spacingTop=6;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;BACK-OFFICE: Manufacturing.Services&lt;br&gt;(Web API Gateway)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="270" width="600" x="140" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="pipelines-label" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontStyle=1;fontSize=12;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;6. Triggers Onion Architecture Pipelines:&lt;/font&gt;" vertex="1">
+          <mxGeometry height="20" width="380" x="170" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="core-domain" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;Core Domain: Run Credit Check &amp;amp; BOM Capacity Validation&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="520" x="180" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="infra" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;Infrastructure: Commit to ERP/Db (Status: Scheduled)&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="520" x="180" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-core-to-infra" edge="1" parent="1" source="core-domain" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" target="infra">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="backoffice-ui" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;BACK-OFFICE UI&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Angular + Signals)&lt;/i&gt;&lt;/font&gt;&lt;hr&gt;&lt;font style=&quot;font-size: 15px;&quot;&gt;Factory floor dashboard updates: &quot;Batch #402 150 Walnut Sets Ready&quot;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="150" width="280" x="560" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-infra-to-ui" edge="1" parent="1" source="infra" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;exitX=0.85;exitY=1;entryX=0.5;entryY=0;fontSize=11;" target="backoffice-ui" value="7. Server-Sent Event / SignalR">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
