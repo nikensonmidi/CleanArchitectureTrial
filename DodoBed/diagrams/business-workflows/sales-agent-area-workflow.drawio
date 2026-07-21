@@ -1,0 +1,75 @@
+<mxfile host="app.diagrams.net" agent="Claude Code">
+  <diagram id="sales-agent-area-workflow" name="Sales Agent Area - Workflow">
+    <mxGraphModel dx="1607" dy="973" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="1350" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="boundary" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;fontStyle=1;fontSize=13;fillColor=none;strokeColor=#666666;dashed=1;spacingLeft=8;spacingTop=6;" value="[ FRONT-OFFICE WEB (MVC) &#8212; SalesAgent Area Domain Model ]" vertex="1">
+          <mxGeometry x="20" y="20" width="1060" height="1300" as="geometry" />
+        </mxCell>
+
+        <!-- SalesAgent -->
+        <mxCell id="sales-agent" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;SalesAgent&lt;/b&gt;&lt;br&gt;&lt;i&gt;(The Field Rep)&lt;/i&gt;&lt;/font&gt;&lt;hr&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;Id (PK, Guid)&lt;br&gt;EmployeeId (FK, string)&lt;br&gt;FirstName / LastName (string)&lt;br&gt;Email / PhoneNumber (string)&lt;br&gt;TerritoryRegion (string)&lt;/font&gt;" vertex="1">
+          <mxGeometry x="350" y="60" width="380" height="160" as="geometry" />
+        </mxCell>
+
+        <!-- Customer -->
+        <mxCell id="customer" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;Customer&lt;/b&gt;&lt;br&gt;&lt;i&gt;(The B2B Client)&lt;/i&gt;&lt;/font&gt;&lt;hr&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;Id (PK, Guid)&lt;br&gt;SalesAgentId (FK &#8594; SalesAgent.Id)&lt;br&gt;CompanyName (string)&lt;br&gt;TaxId / EIN (string)&lt;br&gt;CreditLimit (decimal)&lt;br&gt;CurrentBalance (decimal)&lt;br&gt;PricingTier (enum: Standard/Silver/Gold/Platinum)&lt;br&gt;BillingAddressId / ShippingAddressId (FK &#8594; Address.Id)&lt;/font&gt;" vertex="1">
+          <mxGeometry x="350" y="280" width="380" height="210" as="geometry" />
+        </mxCell>
+
+        <!-- Quote -->
+        <mxCell id="quote" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;Quote&lt;/b&gt;&lt;br&gt;&lt;i&gt;(The Deal Proposal)&lt;/i&gt;&lt;/font&gt;&lt;hr&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;Id (PK, Guid)&lt;br&gt;QuoteNumber (string)&lt;br&gt;CustomerId (FK &#8594; Customer.Id)&lt;br&gt;SalesAgentId (FK &#8594; SalesAgent.Id)&lt;br&gt;RequestedDeliveryDate (DateTime)&lt;br&gt;Status (enum: Draft/Submitted_For_Review/Approved/Rejected/Converted_To_Order)&lt;br&gt;SubTotal / DiscountAmount (decimal)&lt;br&gt;TaxAmount / GrandTotal (decimal)&lt;br&gt;CreatedAt / ExpiresAt (DateTime)&lt;/font&gt;" vertex="1">
+          <mxGeometry x="350" y="550" width="380" height="230" as="geometry" />
+        </mxCell>
+
+        <!-- QuoteLineItem -->
+        <mxCell id="quote-line-item" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;QuoteLineItem&lt;/b&gt;&lt;br&gt;&lt;i&gt;(The Configured Item)&lt;/i&gt;&lt;/font&gt;&lt;hr&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;Id (PK, Guid)&lt;br&gt;QuoteId (FK &#8594; Quote.Id)&lt;br&gt;ProductId (FK &#8594; Product.Id)&lt;br&gt;Quantity (int)&lt;br&gt;UnitPrice / LineTotal (decimal)&lt;/font&gt;" vertex="1">
+          <mxGeometry x="60" y="840" width="380" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- Order -->
+        <mxCell id="order" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;Order&lt;/b&gt;&lt;br&gt;&lt;i&gt;(The Firm B2B Contract)&lt;/i&gt;&lt;/font&gt;&lt;hr&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;Id (PK, Guid)&lt;br&gt;OrderNumber (string)&lt;br&gt;QuoteId (FK &#8594; Quote.Id, nullable)&lt;br&gt;CustomerId (FK &#8594; Customer.Id)&lt;br&gt;SalesAgentId (FK &#8594; SalesAgent.Id)&lt;br&gt;Status (enum: Pending_Review/Scheduled/In_Production/Ready_For_Dispatch/In_Transit/Delivered)&lt;br&gt;BatchProductionId (string)&lt;br&gt;ConfirmedDeliveryDate (DateTime)&lt;br&gt;TotalAmount (decimal)&lt;br&gt;CreatedAt (DateTime)&lt;/font&gt;" vertex="1">
+          <mxGeometry x="640" y="840" width="380" height="250" as="geometry" />
+        </mxCell>
+
+        <!-- SelectedOption -->
+        <mxCell id="selected-option" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;SelectedOption&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Chosen Config, e.g. Walnut + King)&lt;/i&gt;&lt;/font&gt;&lt;hr&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;Id (PK, Guid)&lt;br&gt;QuoteLineItemId (FK &#8594; QuoteLineItem.Id)&lt;br&gt;ProductOptionValueId (FK &#8594; ProductOptionValue.Id)&lt;/font&gt;" vertex="1">
+          <mxGeometry x="60" y="1150" width="380" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- OrderLineItem -->
+        <mxCell id="order-line-item" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;&lt;b&gt;OrderLineItem&lt;/b&gt;&lt;/font&gt;&lt;hr&gt;&lt;font style=&quot;font-size: 13px;&quot;&gt;Id (PK, Guid)&lt;br&gt;OrderId (FK &#8594; Order.Id)&lt;br&gt;ProductId (FK &#8594; Product.Id)&lt;/font&gt;" vertex="1">
+          <mxGeometry x="640" y="1150" width="380" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="edge-sa-customer" edge="1" parent="1" source="sales-agent" target="customer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontSize=12;labelBackgroundColor=#ffffff;" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-customer-quote" edge="1" parent="1" source="customer" target="quote" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontSize=12;labelBackgroundColor=#ffffff;" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-quote-qli" edge="1" parent="1" source="quote" target="quote-line-item" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;exitX=0.25;exitY=1;entryX=0.5;entryY=0;fontSize=12;labelBackgroundColor=#ffffff;" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-quote-order" edge="1" parent="1" source="quote" target="order" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;exitX=0.75;exitY=1;entryX=0.5;entryY=0;fontSize=12;labelBackgroundColor=#ffffff;" value="1 : 0..1 (nullable)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-qli-selopt" edge="1" parent="1" source="quote-line-item" target="selected-option" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontSize=12;labelBackgroundColor=#ffffff;" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="edge-order-oli" edge="1" parent="1" source="order" target="order-line-item" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontSize=12;labelBackgroundColor=#ffffff;" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

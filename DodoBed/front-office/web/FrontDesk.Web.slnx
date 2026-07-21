@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/BenchMarks/">
+    <Project Path="BenchMarks/BenchMarks.csproj" />
+  </Folder>
   <Folder Name="/Application/">
     <Project Path="Application/FrontDesk.Application/FrontDesk.Application.csproj" />
   </Folder>
