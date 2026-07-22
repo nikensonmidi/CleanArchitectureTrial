@@ -1,1 +1,3 @@
-console.log("cloud-resources: no command specified");
+import {executeStorePorcess} from '../src/entry-point.js';
+
+
